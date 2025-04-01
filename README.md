@@ -143,4 +143,4 @@ This project is licensed under the **MIT License**.
 
 ## Contact
 
-For any questions or suggestions, reach out to **[obbyfranky@outlook.com](mailto:cobbyfranky@outlook.com)**.
+For any questions or suggestions, reach out to **[cobbyfranky@outlook.com](mailto:cobbyfranky@outlook.com)**.
