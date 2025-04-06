@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+Body {
+    Font-family: Poppins, sans-serif;
+    font-weight: 700;
+    Background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+#menu, #close-menu {
+    font-size: 30px;
+    margin-left: -2px;
+    z-index: 99;
+}
+
+h1 {
+    text-align: center;
+}
+
+.ham-close, .ham-open {
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.ham-open {
+    display: none;
+}
+
+.ham-close {
+    position: fixed;
+    right: 8px;
+    /* margin-bottom: 25px; */
+}
+
+.container {
+    width: 80%;
+    Max-width: 500px;
+    Margin: 50px auto;
+    Padding: 20px;
+    Background-color: #fff;
+    Border: 1px solid #ddd;
+    Border-radius: 10px;
+    Box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: -6;
+    position: absolute;
+    left: 35%;
+    top: 15%;
+}
+
+#task-input {
+    Width: 80%;
+    Padding: 10px;
+    margin-left: 25px;
+    Margin-bottom: 10px;
+    Border: 1px solid #ccc;
+    outline: none;
+    font: inherit;
+}
+
+#add-task-btn {
+    Width: 85%;
+    Padding: 10px;
+    margin-left: 25px;
+    Background-color: #2c890f;
+    Color: #fff;
+    Border: none;
+    Border-radius: 5px;
+    Cursor: pointer;
+    font: inherit;
+}
+
+#add-task-btn:hover {
+    Background-color: #3e8e41;
+}
+
+#task-list {
+    color: #000;
+    List-style: none;
+    Padding: 0;
+    Margin: 0;
+    margin-top: 5px;
+}
+
+.task {
+    Padding: 15px;
+    margin-bottom: 5px;
+    margin-top: 0;
+    /* Border-bottom: 1px solid #ccc; */
+}
+
+.task:last-child {
+    Border-bottom: none;
+}
+
+.delete-btn, .complete-btn, .uncomplete-btn {
+    position: relative;
+    width: 40px;
+    transition: width 0.3s ease-in-out;
+}
+
+.delete-btn {
+    Float: right;
+    Background-color: #f44336;
+    Color: #fff;
+    Border: none;
+    Padding: 5px 10px;
+    Border-radius: 5px;
+    Cursor: pointer;
+    font: inherit;
+}
+
+.delete-btn:hover {
+    Background-color: #e91e63;
+}
+
+.complete-btn {
+        Float: right;
+        Background-color: #2c890f;
+        Color: #fff;
+        Border: none;
+        Padding: 5px 10px;
+        Border-radius: 5px;
+        Cursor: pointer;
+        font: inherit;
+}
+
+.complete-btn:hover {
+    Background-color: #3e8e41;
+}
+
+.uncomplete-btn {
+        Float: right;
+        Background-color: #e0f009;
+        Color: #fff;
+        Border: none;
+        Padding: 5px 10px;
+        Border-radius: 5px;
+        Cursor: pointer;
+        font: inherit;
+}
+
+.uncomplete-btn:hover {
+    Background-color: #bdc732;
+}
+
+.delete-btn span, .complete-btn span, .uncomplete-btn span {
+    display: none;
+}
+
+.delete-btn:hover, .complete-btn:hover, .uncomplete-btn:hover {
+    width: 120px;
+    padding: 5px 10px;
+    height: 40px;
+}
+
+.complete-btn:hover, .uncomplete-btn:hover {
+    padding: 5px 38px;
+}
+
+.delete-btn:hover i, .complete-btn:hover i, .uncomplete-btn:hover i {
+    display: none;
+}
+
+.delete-btn:hover span, .complete-btn:hover span, .uncomplete-btn:hover span {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.sidebar {
+    background: #0000005d;
+    z-index: 99;
+    margin: 0;
+    /* display: none; */
+    height: 100vh;
+}
+
+.sidebar-acti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: #2E4053;
+    width: 25%;
+    padding: 12px;
+    margin: 0;
+}
+
+h4 {
+    font-size: 12px;
+}
+
+.sidebar-acti h4 {
+    margin-top: 75px;
+    margin-left: 0;
+    font-size: 16px;
+    color: #fff;
+    transition: transform 0.2s ease-in-out;
+}
+
+.sidebar-acti h4:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 960px) {
+    .container {
+        left: 18%;
+        top: 13%;
+        font-size: 10px;
+        width: 65%;
+    }
+
+    #menu {
+        font-size: 20px;
+    }
+
+    #task-input, #add-task-btn {
+        font-size: 13px;
+    }
+
+    .complete-btn:hover, .uncomplete-btn:hover {
+        padding: 5px 10px;
+    }
+
+    
+}
+
+@media (max-width: 560px) {
+    .container {
+        width: 75%;
+        max-width: 360px;
+        left: 10%;
+        /* top: 9%; */
+        font-size: 10px;
+    }
+
+    #menu {
+        font-size: 17px;
+        margin-left: -7px;
+        /* margin-top: -580px; */
+    }
+
+    #task-input,
+    #add-task-btn {
+        font-size: 13px;
+    }
+
+    .complete-btn:hover,
+    .uncomplete-btn:hover {
+        padding: 5px 10px;
+    }
+
+    #task-list {
+        margin-left: -20px;
+    }
+}
