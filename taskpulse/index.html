@@ -3,24 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TASK PULSE</title>
-    <link rel="stylesheet" href="styles/styles.css" />
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
+
   <body>
-    <header>
-      <div>
-        <span> TASK PULSE</span>
-      </div>
-      <nav>
-        <ul>
-            <li></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-        <div></div>
-    </main>
-    <footer></footer>
-    <script src="./src/index.js" defer></script>
+    <!-- Open Sidebar Button -->
+    <button id="ham-open">
+      <i class="fa fa-bars"></i>
+    </button>
+
+    <!-- Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <button id="ham-close">
+        <i class="fa fa-times"></i>
+      </button>
+
+      <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Tasks</a></li>
+        <li><a href="#">Completed Tasks</a></li>
+        <li><a href="#">Uncompleted Tasks</a></li>
+        <li><a href="#">Settings</a></li>
+      </ul>
+    </div>
+
+    <div class="container">
+      <h1>TASK MANAGER APP</h1>
+      <input type="text" id="task-input" placeholder="Enter Task...." />
+      <button id="add-task-btn">Add Task</button>
+      <ul id="task-list"></ul>
+    </div>
+
+    <script src="./src/index.js"></script>
   </body>
 </html>
