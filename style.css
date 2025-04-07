@@ -8,7 +8,8 @@ body {
     padding: 0;
 }
 
-#menu, #close-menu {
+#menu,
+#close-menu {
     font-size: 30px;
     margin-left: -2px;
     z-index: 99;
@@ -18,19 +19,25 @@ h1 {
     text-align: center;
 }
 
-.ham-close, .ham-open {
+.ham-close,
+.ham-open {
     border: none;
     outline: none;
     background: none;
 }
 
-.ham-open {
+/* .ham-open {
     display: none;
+} */
+
+#menu {
+    margin-left: 2px;
 }
 
 .ham-close {
     position: fixed;
     right: 8px;
+    color: #fff;
     /* margin-bottom: 25px; */
 }
 
@@ -94,7 +101,9 @@ h1 {
     border-bottom: none;
 }
 
-.delete-btn, .complete-btn, .uncomplete-btn {
+.delete-btn,
+.complete-btn,
+.uncomplete-btn {
     position: relative;
     width: 40px;
     transition: width 0.3s ease-in-out;
@@ -116,6 +125,7 @@ h1 {
 }
 
 .complete-btn {
+<<<<<<< HEAD
     float: right;
     background-color: #2c890f;
     color: #fff;
@@ -123,6 +133,15 @@ h1 {
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
+=======
+    Float: right;
+    Background-color: #2c890f;
+    Color: #fff;
+    Border: none;
+    Padding: 5px 10px;
+    Border-radius: 5px;
+    Cursor: pointer;
+>>>>>>> dce204be44bbf55b70d13be0051bcd5f8ea05bef
     font: inherit;
 }
 
@@ -131,6 +150,7 @@ h1 {
 }
 
 .uncomplete-btn {
+<<<<<<< HEAD
     float: right;
     background-color: #e0f009;
     color: #fff;
@@ -138,6 +158,15 @@ h1 {
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
+=======
+    Float: right;
+    Background-color: #e0f009;
+    Color: #fff;
+    Border: none;
+    Padding: 5px 10px;
+    Border-radius: 5px;
+    Cursor: pointer;
+>>>>>>> dce204be44bbf55b70d13be0051bcd5f8ea05bef
     font: inherit;
 }
 
@@ -145,25 +174,34 @@ h1 {
     background-color: #bdc732;
 }
 
-.delete-btn span, .complete-btn span, .uncomplete-btn span {
+.delete-btn span,
+.complete-btn span,
+.uncomplete-btn span {
     display: none;
 }
 
-.delete-btn:hover, .complete-btn:hover, .uncomplete-btn:hover {
+.delete-btn:hover,
+.complete-btn:hover,
+.uncomplete-btn:hover {
     width: 120px;
     padding: 5px 10px;
     height: 40px;
 }
 
-.complete-btn:hover, .uncomplete-btn:hover {
+.complete-btn:hover,
+.uncomplete-btn:hover {
     padding: 5px 38px;
 }
 
-.delete-btn:hover i, .complete-btn:hover i, .uncomplete-btn:hover i {
+.delete-btn:hover i,
+.complete-btn:hover i,
+.uncomplete-btn:hover i {
     display: none;
 }
 
-.delete-btn:hover span, .complete-btn:hover span, .uncomplete-btn:hover span {
+.delete-btn:hover span,
+.complete-btn:hover span,
+.uncomplete-btn:hover span {
     display: inline-block;
     position: absolute;
     top: 50%;
@@ -171,40 +209,77 @@ h1 {
     transform: translate(-50%, -50%);
 }
 
-.sidebar {
-    background: #0000005d;
-    z-index: 99;
-    margin: 0;
-    /* display: none; */
-    height: 100vh;
-}
-
-.sidebar-acti {
+/* Sidebar Styles */
+/* Overlay Styles */
+.overlay {
     position: fixed;
     top: 0;
     left: 0;
+    right: 0;
     bottom: 0;
-    background: #2E4053;
-    width: 25%;
-    padding: 12px;
-    margin: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 900;
+    transition: opacity 0.3s ease;
 }
 
-h4 {
-    font-size: 12px;
+.overlay.active {
+    display: block;
 }
 
-.sidebar-acti h4 {
-    margin-top: 75px;
-    margin-left: 0;
-    font-size: 16px;
-    color: #fff;
-    transition: transform 0.2s ease-in-out;
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
 }
 
-.sidebar-acti h4:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.sidebar.active {
+    transform: translateX(0);
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 15px;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Button Styles */
+#ham-open,
+#ham-close {
+    position: fixed;
+    top: 20px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#ham-open {
+    left: 20px;
+    color: #333;
+    z-index: 1100;
+}
+
+#ham-close {
+    right: 20px;
 }
 
 @media (max-width: 960px) {
@@ -219,13 +294,20 @@ h4 {
         font-size: 20px;
     }
 
-    #task-input, #add-task-btn {
+    #task-input,
+    #add-task-btn {
         font-size: 13px;
     }
 
-    .complete-btn:hover, .uncomplete-btn:hover {
+    .complete-btn:hover,
+    .uncomplete-btn:hover {
         padding: 5px 10px;
     }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dce204be44bbf55b70d13be0051bcd5f8ea05bef
 }
 
 @media (max-width: 560px) {
