@@ -26,7 +26,7 @@ function addTask() {
     // Create task object
     const newTask = {
       text: taskText,
-      id: uuid(), // Generate unique ID for task
+      id: crypto.randomUUID(), // Generate unique ID for task
       // id: Date.now(),//new
       time: new Date().toLocaleTimeString(), //new
       date: new Date().toLocaleDateString(), //new
@@ -34,8 +34,8 @@ function addTask() {
     };
 
     // Add task to tasks array
-    // tasks.push(task);
-    [newTask, ...tasks]; // Add new task to the beginning of the array
+    // tasks.push(newTask);
+    tasks = [newTask, ...tasks]; // Add new task to the beginning of the array
 
         // Clear task input
         taskInput.value = '';
