@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-Body {
-    Font-family: Poppins, sans-serif;
+body {
+    font-family: Poppins, sans-serif;
     font-weight: 700;
-    Background-color: #f0f0f0;
+    background-color: #f0f0f0;
     margin: 0;
     padding: 0;
 }
@@ -36,13 +36,13 @@ h1 {
 
 .container {
     width: 80%;
-    Max-width: 500px;
-    Margin: 50px auto;
-    Padding: 20px;
-    Background-color: #fff;
-    Border: 1px solid #ddd;
-    Border-radius: 10px;
-    Box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: -6;
     position: absolute;
     left: 35%;
@@ -50,48 +50,48 @@ h1 {
 }
 
 #task-input {
-    Width: 80%;
-    Padding: 10px;
+    width: 80%;
+    padding: 10px;
     margin-left: 25px;
-    Margin-bottom: 10px;
-    Border: 1px solid #ccc;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
     outline: none;
     font: inherit;
 }
 
 #add-task-btn {
-    Width: 85%;
-    Padding: 10px;
+    width: 85%;
+    padding: 10px;
     margin-left: 25px;
-    Background-color: #2c890f;
-    Color: #fff;
-    Border: none;
-    Border-radius: 5px;
-    Cursor: pointer;
+    background-color: #2c890f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     font: inherit;
 }
 
 #add-task-btn:hover {
-    Background-color: #3e8e41;
+    background-color: #3e8e41;
 }
 
 #task-list {
     color: #000;
-    List-style: none;
-    Padding: 0;
-    Margin: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
     margin-top: 5px;
 }
 
 .task {
-    Padding: 15px;
+    padding: 15px;
     margin-bottom: 5px;
     margin-top: 0;
-    /* Border-bottom: 1px solid #ccc; */
+    /* border-bottom: 1px solid #ccc; */
 }
 
 .task:last-child {
-    Border-bottom: none;
+    border-bottom: none;
 }
 
 .delete-btn, .complete-btn, .uncomplete-btn {
@@ -101,48 +101,48 @@ h1 {
 }
 
 .delete-btn {
-    Float: right;
-    Background-color: #f44336;
-    Color: #fff;
-    Border: none;
-    Padding: 5px 10px;
-    Border-radius: 5px;
-    Cursor: pointer;
+    float: right;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
     font: inherit;
 }
 
 .delete-btn:hover {
-    Background-color: #e91e63;
+    background-color: #e91e63;
 }
 
 .complete-btn {
-        Float: right;
-        Background-color: #2c890f;
-        Color: #fff;
-        Border: none;
-        Padding: 5px 10px;
-        Border-radius: 5px;
-        Cursor: pointer;
-        font: inherit;
+    float: right;
+    background-color: #2c890f;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font: inherit;
 }
 
 .complete-btn:hover {
-    Background-color: #3e8e41;
+    background-color: #3e8e41;
 }
 
 .uncomplete-btn {
-        Float: right;
-        Background-color: #e0f009;
-        Color: #fff;
-        Border: none;
-        Padding: 5px 10px;
-        Border-radius: 5px;
-        Cursor: pointer;
-        font: inherit;
+    float: right;
+    background-color: #e0f009;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font: inherit;
 }
 
 .uncomplete-btn:hover {
-    Background-color: #bdc732;
+    background-color: #bdc732;
 }
 
 .delete-btn span, .complete-btn span, .uncomplete-btn span {
@@ -226,8 +226,6 @@ h4 {
     .complete-btn:hover, .uncomplete-btn:hover {
         padding: 5px 10px;
     }
-
-    
 }
 
 @media (max-width: 560px) {
