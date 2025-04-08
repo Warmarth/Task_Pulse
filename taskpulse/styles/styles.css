@@ -1,10 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
-@import "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-body {
-  font-family: Poppins, sans-serif;
+Body {
+  Font-family: Poppins, sans-serif;
   font-weight: 700;
-  background-color: #f0f0f0;
+  Background-color: #f0f0f0;
   margin: 0;
   padding: 0;
 }
@@ -27,10 +26,6 @@ h1 {
   background: none;
 }
 
-/* .ham-open {
-    display: none;
-} */
-
 #menu {
   margin-left: 2px;
 }
@@ -39,18 +34,17 @@ h1 {
   position: fixed;
   right: 8px;
   color: #fff;
-  /* margin-bottom: 25px; */
 }
 
 .container {
   width: 80%;
-  max-width: 500px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  Max-width: 500px;
+  Margin: 50px auto;
+  Padding: 20px;
+  Background-color: #fff;
+  Border: 1px solid #ddd;
+  Border-radius: 10px;
+  Box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: -6;
   position: absolute;
   left: 35%;
@@ -58,48 +52,47 @@ h1 {
 }
 
 #task-input {
-  width: 80%;
-  padding: 10px;
+  Width: 80%;
+  Padding: 10px;
   margin-left: 25px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
+  Margin-bottom: 10px;
+  Border: 1px solid #ccc;
   outline: none;
   font: inherit;
 }
 
 #add-task-btn {
-  width: 85%;
-  padding: 10px;
+  Width: 85%;
+  Padding: 10px;
   margin-left: 25px;
-  background-color: #2c890f;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  Background-color: #2c890f;
+  Color: #fff;
+  Border: none;
+  Border-radius: 5px;
+  Cursor: pointer;
   font: inherit;
 }
 
 #add-task-btn:hover {
-  background-color: #3e8e41;
+  Background-color: #3e8e41;
 }
 
 #task-list {
   color: #000;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  List-style: none;
+  Padding: 0;
+  Margin: 0;
   margin-top: 5px;
 }
 
 .task {
-  padding: 15px;
+  Padding: 15px;
   margin-bottom: 5px;
   margin-top: 0;
-  /* border-bottom: 1px solid #ccc; */
 }
 
 .task:last-child {
-  border-bottom: none;
+  Border-bottom: none;
 }
 
 .delete-btn,
@@ -111,48 +104,48 @@ h1 {
 }
 
 .delete-btn {
-  float: right;
-  background-color: #f44336;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
+  Float: right;
+  Background-color: #f44336;
+  Color: #fff;
+  Border: none;
+  Padding: 5px 10px;
+  Border-radius: 5px;
+  Cursor: pointer;
   font: inherit;
 }
 
 .delete-btn:hover {
-  background-color: #e91e63;
+  Background-color: #e91e63;
 }
 
 .complete-btn {
-  float: right;
-  background-color: #2c890f;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
+  Float: right;
+  Background-color: #2c890f;
+  Color: #fff;
+  Border: none;
+  Padding: 5px 10px;
+  Border-radius: 5px;
+  Cursor: pointer;
   font: inherit;
 }
 
 .complete-btn:hover {
-  background-color: #3e8e41;
+  Background-color: #3e8e41;
 }
 
 .uncomplete-btn {
-  float: right;
-  background-color: #e0f009;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
+  Float: right;
+  Background-color: #e0f009;
+  Color: #fff;
+  Border: none;
+  Padding: 5px 10px;
+  Border-radius: 5px;
+  Cursor: pointer;
   font: inherit;
 }
 
 .uncomplete-btn:hover {
-  background-color: #bdc732;
+  Background-color: #bdc732;
 }
 
 .delete-btn span,
@@ -234,6 +227,12 @@ h1 {
 
 .sidebar ul li {
   margin-bottom: 15px;
+  display: flex;
+  /*Added this*/
+  justify-content: space-between;
+  /*Added this*/
+  align-items: center;
+  /*Added this*/
 }
 
 .sidebar ul li a {
@@ -263,63 +262,63 @@ h1 {
   right: 20px;
 }
 
-h3:hover{
-  cursor: pointer;
-  color: #2c890f;
-}
-.spread {
-  display: none;
-}
+/* ... your existing CSS ... */
 
 @media (max-width: 960px) {
   .container {
-    left: 18%;
-    top: 13%;
-    font-size: 10px;
-    width: 65%;
+    width: 90%;
+    /* Adjust container width for smaller screens */
+    left: 5%;
+    /* Center container on smaller screens */
+    top: 5%;
   }
 
-  #menu {
-    font-size: 20px;
+  .sidebar {
+    width: 80%;
+    /* Adjust sidebar width for smaller screens */
+  }
+
+  .task-section {
+    padding-left: 0;
+    /* Remove padding from task section */
+  }
+
+  .task-section .container {
+    left: 5%;
+    /* Center container */
+    top: 10%;
+    width: 90%;
   }
 
   #task-input,
   #add-task-btn {
-    font-size: 13px;
+    width: 90%;
+    /* Adjust input and button width */
+    margin-left: 5%;
   }
 
-  .complete-btn:hover,
-  .uncomplete-btn:hover {
-    padding: 5px 10px;
+  .delete-btn,
+  .complete-btn,
+  .uncomplete-btn {
+    width: 70px;
   }
 }
 
 @media (max-width: 560px) {
-  .container {
-    width: 75%;
-    max-width: 360px;
-    left: 10%;
-    /* top: 9%; */
-    font-size: 10px;
+  .sidebar {
+    width: 100%;
+    /* Full width sidebar on very small screens */
   }
 
-  #menu {
-    font-size: 17px;
-    margin-left: -7px;
-    /* margin-top: -580px; */
+  .task-section .container {
+    width: 95%;
+    left: 2.5%;
   }
 
-  #task-input,
-  #add-task-btn {
-    font-size: 13px;
+  .delete-btn,
+  .complete-btn,
+  .uncomplete-btn {
+    width: 60px;
   }
 
-  .complete-btn:hover,
-  .uncomplete-btn:hover {
-    padding: 5px 10px;
-  }
-
-  #task-list {
-    margin-left: -20px;
-  }
 }
