@@ -5,6 +5,10 @@ const taskList = document.getElementById("task-list");
 const allTasksDropdown = document.getElementById('all-tasks')
 const completeDropdown = document.getElementById("complete-dropdown"); // Dropdown element
 const uncompleteDropdown = document.getElementById('uncomplete-dropdown')
+const allTasksHeader = document.getElementById("all-tasks-header");
+const uncompleteHeader = document.getElementById("uncomplete-header");
+const completeHeader = document.getElementById("complete-header");
+
 
 // Initialize tasks array
 let tasks = [];
@@ -17,6 +21,7 @@ taskInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     addTask();
     updateDropdown();
+    allTasksDropdown.style.display = "none";
   }
 });
 
@@ -122,7 +127,6 @@ function renderTasks() {
 
       // Remove the "Uncompleted" button
       uncompleteBtn.remove();
-      // Update the tasks array (if needed for persistence)
       tasks = tasks.map((t) => (t.id === task.id ? { ...t, completed: true } : t));
       updateDropdown();
     });
@@ -187,4 +191,25 @@ function updateDropdown() {
       completeDropdown.appendChild(option);
     }
   });
+}
+// Add event listeners to toggle dropdown visibility
+allTasksHeader.addEventListener("click", () => {
+  spread(allTasksDropdown);
+});
+
+uncompleteHeader.addEventListener("click", () => {
+  spread(uncompleteDropdown);
+});
+
+completeHeader.addEventListener("click", () => {
+  spread(completeDropdown);
+});
+
+// Function to toggle dropdown visibility
+function spread(dropdown) {
+  if (dropdown.style.display === "none" || dropdown.style.display === "") {
+    dropdown.style.display = "block";
+  } else {
+    dropdown.style.display = "none";
+  }
 }
