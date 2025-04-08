@@ -95,6 +95,7 @@ h1 {
   padding: 15px;
   margin-bottom: 5px;
   margin-top: 0;
+  text-align: center;
   /* border-bottom: 1px solid #ccc; */
 }
 
@@ -263,7 +264,7 @@ h1 {
   right: 20px;
 }
 
-h3:hover{
+h3:hover {
   cursor: pointer;
   color: #2c890f;
 }

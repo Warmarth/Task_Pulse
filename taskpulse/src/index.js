@@ -9,7 +9,6 @@ const allTasksHeader = document.getElementById("all-tasks-header");
 const uncompleteHeader = document.getElementById("uncomplete-header");
 const completeHeader = document.getElementById("complete-header");
 
-
 // Initialize tasks array
 let tasks = [];
 
@@ -36,14 +35,10 @@ function addTask() {
     const newTask = {
       text: taskText,
       id: crypto.randomUUID(), // Generate unique ID for task
-      // id: Date.now(),//new
       time: new Date().toLocaleTimeString(), //new
       date: new Date().toLocaleDateString(), //new
       completed: false, //new
     };
-
-    // Add task to tasks array
-    // tasks.push(newTask);
     tasks = [newTask, ...tasks]; // Add new task to the beginning of the array
 
     // Clear task input
