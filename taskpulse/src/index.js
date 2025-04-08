@@ -2,6 +2,13 @@
 const taskInput = document.getElementById("task-input");
 const addTaskBtn = document.getElementById("add-task-btn");
 const taskList = document.getElementById("task-list");
+const allTasksDropdown = document.getElementById('all-tasks')
+const completeDropdown = document.getElementById("complete-dropdown"); // Dropdown element
+const uncompleteDropdown = document.getElementById('uncomplete-dropdown')
+const allTasksHeader = document.getElementById("all-tasks-header");
+const uncompleteHeader = document.getElementById("uncomplete-header");
+const completeHeader = document.getElementById("complete-header");
+
 
 // Initialize tasks array
 let tasks = [];
@@ -13,6 +20,8 @@ addTaskBtn.addEventListener("click", addTask);
 taskInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     addTask();
+    updateDropdown();
+    allTasksDropdown.style.display = "none";
   }
 });
 
@@ -108,6 +117,18 @@ function renderTasks() {
 
       // Render tasks
       renderTasks();
+      updateDropdown();
+    });
+
+    // Add event listener to the "Completed" button
+    completeBtn.addEventListener("click", () => {
+      // Mark the task as completed
+      task.completed = true;
+
+      // Remove the "Uncompleted" button
+      uncompleteBtn.remove();
+      tasks = tasks.map((t) => (t.id === task.id ? { ...t, completed: true } : t));
+      updateDropdown();
     });
 
     // Append task text and delete button to task element
@@ -141,3 +162,54 @@ overlay.addEventListener("click", () => {
   sidebar.classList.remove("active");
   overlay.classList.remove("active");
 });
+
+// Function to update the dropdown
+function updateDropdown() {
+  allTasksDropdown.innerHTML = ""; // Clear all tasks dropdown
+  completeDropdown.innerHTML = "";
+  uncompleteDropdown.innerHTML = "";
+
+  tasks.forEach((task) => {
+    // Add to all tasks dropdown
+    const allOption = document.createElement("li");
+    allOption.textContent = task.text;
+    allOption.style.color = "black";
+    allOption.style.paddingLeft = "3em";
+    allTasksDropdown.appendChild(allOption);
+
+    if (!task.completed) {
+      const option = document.createElement("li");
+      option.textContent = task.text;
+      option.style.color = "red";
+      option.style.paddingLeft = "3em";
+      uncompleteDropdown.appendChild(option);
+    } else {
+      const option = document.createElement("li");
+      option.textContent = task.text;
+      option.style.color = "green";
+      option.style.paddingLeft = "3em";
+      completeDropdown.appendChild(option);
+    }
+  });
+}
+// Add event listeners to toggle dropdown visibility
+allTasksHeader.addEventListener("click", () => {
+  spread(allTasksDropdown);
+});
+
+uncompleteHeader.addEventListener("click", () => {
+  spread(uncompleteDropdown);
+});
+
+completeHeader.addEventListener("click", () => {
+  spread(completeDropdown);
+});
+
+// Function to toggle dropdown visibility
+function spread(dropdown) {
+  if (dropdown.style.display === "none" || dropdown.style.display === "") {
+    dropdown.style.display = "block";
+  } else {
+    dropdown.style.display = "none";
+  }
+}

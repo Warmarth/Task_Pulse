@@ -262,6 +262,14 @@ h1 {
   right: 20px;
 }
 
+h3:hover{
+  cursor: pointer;
+  color: #2c890f;
+}
+.spread {
+  display: none;
+}
+
 @media (max-width: 960px) {
   .container {
     left: 18%;
