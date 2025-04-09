@@ -153,20 +153,20 @@ function renderCompletedTasks() {
         const taskElement = document.createElement('li');
         const words = task.text.split(' ');
         let displayText = task.text;
-        if (words.length > 3) {
-            displayText = words.slice(0, 2).join(' ') + '...';
+        if (words.length > 4) {
+            displayText = words.slice(0, 4).join(' ') + '...';
         }
         taskElement.textContent = displayText;
         taskElement.style.whiteSpace = 'nowrap';
         taskElement.style.overflow = 'hidden';
         taskElement.style.textOverflow = 'ellipsis';
-        taskElement.style.maxWidth = 'calc(100% - 100px)';
+        taskElement.style.maxWidth = 'calc(100% - 60px)'; // Adjust max width for icon button
 
         const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Delete';
+        deleteBtn.innerHTML = '<i class="fa fa-times"></i>'; // Delete icon
         deleteBtn.classList.add('delete-btn');
         deleteBtn.style.marginLeft = '5px';
-        deleteBtn.style.width = '80px';
+        deleteBtn.style.width = '30px'; // Adjust button width for icon
         deleteBtn.style.flexShrink = '0';
         deleteBtn.addEventListener('click', () => {
             completedTasks = completedTasks.filter((t) => t.id !== task.id);
@@ -184,20 +184,20 @@ function renderUncompletedTasks() {
         const taskElement = document.createElement('li');
         const words = task.text.split(' ');
         let displayText = task.text;
-        if (words.length > 2) {
-            displayText = words.slice(0, 2).join(' ') + '...';
+        if (words.length > 4) {
+            displayText = words.slice(0, 4).join(' ') + '...';
         }
         taskElement.textContent = displayText;
         taskElement.style.whiteSpace = 'nowrap';
         taskElement.style.overflow = 'hidden';
         taskElement.style.textOverflow = 'ellipsis';
-        taskElement.style.maxWidth = 'calc(100% - 100px)';
+        taskElement.style.maxWidth = 'calc(100% - 60px)'; // Adjust max width for icon button
 
         const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Delete';
+        deleteBtn.innerHTML = '<i class="fa fa-times"></i>'; // Delete icon
         deleteBtn.classList.add('delete-btn');
         deleteBtn.style.marginLeft = '5px';
-        deleteBtn.style.width = '80px';
+        deleteBtn.style.width = '30px'; // Adjust button width for icon
         deleteBtn.style.flexShrink = '0';
         deleteBtn.addEventListener('click', () => {
             uncompletedTasks = uncompletedTasks.filter((t) => t.id !== task.id);

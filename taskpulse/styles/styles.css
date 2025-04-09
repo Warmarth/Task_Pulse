@@ -89,6 +89,8 @@ h1 {
   Padding: 15px;
   margin-bottom: 5px;
   margin-top: 0;
+  text-align: center;
+  /* border-bottom: 1px solid #ccc; */
 }
 
 .task:last-child {
@@ -262,7 +264,18 @@ h1 {
   right: 20px;
 }
 
-/* ... your existing CSS ... */
+h3:hover {
+  cursor: pointer;
+  color: #2c890f;
+}
+.spread {
+  display: none;
+}
+
+sidebar .delete-btn {
+  /*remove hover effect*/
+  background-color: #f44336;
+}
 
 @media (max-width: 960px) {
   .container {
@@ -274,7 +287,7 @@ h1 {
   }
 
   .sidebar {
-    width: 80%;
+    width: 75%;
     /* Adjust sidebar width for smaller screens */
   }
 
@@ -306,7 +319,7 @@ h1 {
 
 @media (max-width: 560px) {
   .sidebar {
-    width: 100%;
+    width: 80%;
     /* Full width sidebar on very small screens */
   }
 
