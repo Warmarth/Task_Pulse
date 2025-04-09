@@ -30,7 +30,9 @@ function addTask() {
         // Create task object
         const task = {
             text: taskText,
-            id: Date.now(),
+            id: crypto.randomUUID(), // Generate a unique ID for the task
+            date: new Date().toLocaleDateString(), // Get current date
+            time: new Date().toLocaleTimeString(), // Get current time
             completed: false, // Initial state
         };
 
@@ -42,6 +44,9 @@ function addTask() {
 
         // Display tasks
         renderTasks();
+        console.log(tasks);
+        console.log(completedTasks);
+        console.log(uncompletedTasks);
     }
 }
 
@@ -111,6 +116,7 @@ function renderTasks() {
             completedTasks = completedTasks.filter((t) => t.id !== task.id);
             uncompletedTasks = uncompletedTasks.filter((t) => t.id !== task.id);
 
+          
             // Render tasks
             renderTasks();
             renderCompletedTasks();
@@ -154,14 +160,14 @@ function renderCompletedTasks() {
         const words = task.text.split(' ');
         let displayText = task.text;
         if (words.length > 3) {
-            displayText = words.slice(0, 2).join(' ') + '...';
+          displayText = words.slice(0, 2).join(' ') + '...';
         }
         taskElement.textContent = displayText;
         taskElement.style.whiteSpace = 'nowrap';
         taskElement.style.overflow = 'hidden';
         taskElement.style.textOverflow = 'ellipsis';
         taskElement.style.maxWidth = 'calc(100% - 100px)';
-
+        
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = 'Delete';
         deleteBtn.classList.add('delete-btn');
@@ -185,14 +191,14 @@ function renderUncompletedTasks() {
         const words = task.text.split(' ');
         let displayText = task.text;
         if (words.length > 2) {
-            displayText = words.slice(0, 2).join(' ') + '...';
+          displayText = words.slice(0, 2).join(' ') + '...';
         }
         taskElement.textContent = displayText;
         taskElement.style.whiteSpace = 'nowrap';
         taskElement.style.overflow = 'hidden';
         taskElement.style.textOverflow = 'ellipsis';
         taskElement.style.maxWidth = 'calc(100% - 100px)';
-
+        
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = 'Delete';
         deleteBtn.classList.add('delete-btn');
@@ -206,10 +212,10 @@ function renderUncompletedTasks() {
         taskElement.appendChild(deleteBtn);
         uncompletedTaskList.appendChild(taskElement);
     });
-}
+  }
 
-// Sidebar
-const closeMenuBtn = document.getElementById('ham-close');
+  // Sidebar
+  const closeMenuBtn = document.getElementById('ham-close');
 const sidebar = document.querySelector('.sidebar');
 const openMenuBtn = document.getElementById('ham-open');
 const overlay = document.querySelector('.overlay');
@@ -220,11 +226,11 @@ openMenuBtn.addEventListener('click', () => {
 });
 
 closeMenuBtn.addEventListener('click', () => {
-    sidebar.classList.remove('active');
+  sidebar.classList.remove('active');
     overlay.classList.remove('active');
-});
+  });
 
-overlay.addEventListener('click', () => {
+  overlay.addEventListener('click', () => {
     sidebar.classList.remove('active');
     overlay.classList.remove('active');
-});
+  });
