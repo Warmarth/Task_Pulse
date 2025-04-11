@@ -116,7 +116,6 @@ function renderTasks() {
             completedTasks = completedTasks.filter((t) => t.id !== task.id);
             uncompletedTasks = uncompletedTasks.filter((t) => t.id !== task.id);
 
-          
             // Render tasks
             renderTasks();
             renderCompletedTasks();
@@ -234,3 +233,4 @@ closeMenuBtn.addEventListener('click', () => {
     sidebar.classList.remove('active');
     overlay.classList.remove('active');
   });
+  console.log(tasks);

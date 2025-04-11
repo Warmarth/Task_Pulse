@@ -1,0 +1,170 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #5d4df0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  gap: 20px;
+}
+
+.card {
+  width: 400px;
+  border: 1px solid #ccc;
+  background-color: #6d4c4c;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.card.dark {
+  background-color: #1e1e1e;
+  color: white;
+}
+
+.card.light {
+  background-color: white;
+  color: #1e1e1e;
+}
+
+.card h2 {
+  margin: 0 0 8px;
+  font-size: 24px;
+}
+
+.card .subtitle {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #888;
+}
+
+.taskpulse-input {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  margin: auto;
+  margin-bottom: 0.5rem;
+}
+
+.taskpulse-input input {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  border: 1px solid silver;
+}
+.taskpulse-input input::placeholder {
+  font-family: monospace;
+  color: grey;
+}
+
+.taskpulse-input button {
+  padding: 0.5rem 1rem;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid silver;
+  background-color: #4caf50;
+  color: #faf8f6;
+  text-transform: capitalize;
+}
+
+.taskpulse-input input:focus {
+  border: 1px solid transparent;
+}
+
+.completed {
+  color: #bbb;
+  text-decoration: line-through;
+}
+
+.sun-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #f5f5f5;
+  padding: 6px;
+  border-radius: 8px;
+}
+.task-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+}
+
+.todo-card {
+  display: flex;
+  align-items: center;
+  background-color: #f8f5ee;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  width: 95%;
+}
+
+.date-box {
+  background-color: #eee8de;
+  width: 60px;
+  text-align: center;
+  padding: 10px 0;
+  color: #a78b6f;
+  border-radius: 0.3rem;
+}
+
+.date-box .day {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.date-box .month {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+.date-box .time {
+  font-size: 10px;
+}
+
+.task-text {
+  flex: 1;
+  padding: 0 16px;
+  color: #7a746e;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.checkbox {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background-color: #d7dadd;
+  margin-right: 16px;
+}
+
+.checkbox input[type="checkbox"] {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  appearance: none;
+  background-color: #d7dadd;
+  border-radius: 6px;
+}
+.checkbox input[type="checkbox"]:checked {
+  background-color: #4caf50;
+  border-radius: 6px;
+}
