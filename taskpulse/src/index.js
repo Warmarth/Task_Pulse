@@ -1,236 +1,89 @@
-// Get elements
-const taskInput = document.getElementById('task-input');
-const addTaskBtn = document.getElementById('add-task-btn');
-const taskList = document.getElementById('task-list');
-const completedTaskList = document.getElementById('completed-tasks-list');
-const uncompletedTaskList = document.getElementById('uncompleted-tasks-list');
+let switcher1 = document.querySelector(".switch-1");
+let switcher2 = document.querySelector(".switch-2");
+let card = document.querySelector(".card");
 
-// Initialize tasks array
-let tasks = [];
-let completedTasks = [];
-let uncompletedTasks = [];
-
-// To use the add task button
-addTaskBtn.addEventListener('click', addTask);
-
-// To Make use of the Enter key to add tasks
-taskInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        addTask();
-    }
+switcher1.addEventListener("click", function () {
+  switcher2.classList.toggle("close-switch");
+  switcher1.classList.toggle("show-switch");
+  card.classList.replace("dark", "light");
 });
 
-// Function to add task
-function addTask() {
-    // Get task text
-    const taskText = taskInput.value.trim();
+switcher2.addEventListener("click", function () {
+  switcher2.classList.toggle("close-switch");
+  switcher1.classList.toggle("show-switch");
+  card.classList.replace("light", "dark");
+});
 
-    // Check if task text is not empty
-    if (taskText !== '') {
-        // Create task object
-        const task = {
-            text: taskText,
-            id: crypto.randomUUID(), // Generate a unique ID for the task
-            date: new Date().toLocaleDateString(), // Get current date
-            time: new Date().toLocaleTimeString(), // Get current time
-            completed: false, // Initial state
-        };
+let taskInput = document.querySelector("#task_input");
+let addtaskBtn = document.querySelector("#add_button");
 
-        // Add task to tasks array
-        tasks.push(task);
+addtaskBtn.addEventListener("click", function () {
+  let taskText = taskInput.value.trim();
+  if (taskText === "") {
+    alert("Please enter a task.");
+  } else {
+    const day = new Date().getDate();
+    const month = new Date().toLocaleString("default", { month: "long" });
 
-        // Clear task input
-        taskInput.value = '';
+    let newTask = {
+      id: crypto.randomUUID(),
+      text: taskText,
+      date: { day, month },
+      time: new Date().toLocaleTimeString(),
+      completed: false,
+    };
 
-        // Display tasks
-        renderTasks();
-        console.log(tasks);
-        console.log(completedTasks);
-        console.log(uncompletedTasks);
-    }
+    addTask(newTask);
+
+    let tasks =
+      sessionStorage.setItem(newTask.id, JSON.stringify(newTask)) || [];
+
+    tasks.push(newTask);
+    sessionStorage.setItem("tasks", JSON.stringify(tasks));
+
+    renderTasks(newTask);
+
+    taskInput.value = "";
+  }
+});
+
+let taskList = document.querySelector(".task-container");
+function addTask(taskText) {
+  let taskItem = document.createElement("div");
+  taskItem.className = "todo-card";
+  taskItem.innerHTML = `
+  <div class="todo-card">
+  <div class="date-box">
+  <p class="day">${taskText.date["day"]}</p>
+  <p class="month">${taskText.date["month"]}</p>
+  <p class="time">${taskText.time}</p>
+  </div>
+  <p class="task-text">
+              ${taskText.text}
+            </p>
+            <div class="checkbox"><input type="checkbox" /></div>
+            </div>
+  `;
+  taskList.appendChild(taskItem);
+  taskItem.scrollIntoView({ behavior: "smooth" });
 }
 
-// Function to render tasks
-function renderTasks() {
-    // Clear task list
-    taskList.innerHTML = '';
+const renderTasks = (newTasks) => {
+  let task_Items = taskList.children;
+  for (let i = 0; i < task_Items.length; i++) {
+    const checkbox = task_Items[i].querySelector("input[type='checkbox']");
+    const taskText = task_Items[i].querySelector(".task-text");
+    checkbox.addEventListener("click", function () {
+      if (checkbox.checked) {
+        taskText.classList.add("completed");
 
-    // Loop through tasks array
-    tasks.forEach((task) => {
-        // Create task element
-        const taskElement = document.createElement('li');
-        taskElement.classList.add('task');
-        taskElement.style.alignItems = 'center';
-
-        // Create task text element
-        const taskTextElement = document.createElement('span');
-        const words = task.text.split(' ');
-        if (words.length > 5) {
-            taskTextElement.textContent = words.slice(0, 5).join(' ') + '\n' + words.slice(5).join(' ');
-            taskTextElement.style.whiteSpace = 'pre-line'; // Enable line breaks
-        } else {
-            taskTextElement.textContent = task.text;
-        }
-        taskTextElement.style.fontSize = '18px';
-        taskTextElement.style.marginRight = '5px';
-        taskTextElement.style.wordWrap = 'break-word';
-        taskTextElement.style.maxWidth = 'calc(100% - 180px)';
-
-        // Create delete button element
-        const deleteBtn = document.createElement('button');
-        deleteBtn.classList.add('delete-btn');
-        deleteBtn.style.marginLeft = '10px';
-        const deleteIcon = document.createElement('i');
-        deleteIcon.classList.add('fa', 'fa-times');
-        deleteBtn.appendChild(deleteIcon);
-        const deleteText = document.createElement('span');
-        deleteText.textContent = 'Delete';
-        deleteBtn.appendChild(deleteText);
-
-        // Create uncompleted button element
-        const uncompleteBtn = document.createElement('button');
-        uncompleteBtn.classList.add('uncomplete-btn');
-        uncompleteBtn.style.marginLeft = '5px';
-        const uncompleteIcon = document.createElement('i');
-        uncompleteIcon.classList.add('fa', 'fa-circle');
-        uncompleteBtn.appendChild(uncompleteIcon);
-        const uncompleteText = document.createElement('span');
-        uncompleteText.textContent = 'Uncompleted';
-        uncompleteBtn.appendChild(uncompleteText);
-
-        // Create completed button element
-        const completeBtn = document.createElement('button');
-        completeBtn.classList.add('complete-btn');
-        completeBtn.style.marginLeft = '10px';
-        const completeIcon = document.createElement('i');
-        completeIcon.classList.add('fas', 'fa-check');
-        completeBtn.appendChild(completeIcon);
-        const completeText = document.createElement('span');
-        completeText.textContent = 'Completed';
-        completeBtn.appendChild(completeText);
-
-        // Add event listener to delete button
-        deleteBtn.addEventListener('click', () => {
-            // Remove task from tasks array
-            tasks = tasks.filter((t) => t.id !== task.id);
-            completedTasks = completedTasks.filter((t) => t.id !== task.id);
-            uncompletedTasks = uncompletedTasks.filter((t) => t.id !== task.id);
-
-            // Render tasks
-            renderTasks();
-            renderCompletedTasks();
-            renderUncompletedTasks();
-        });
-
-        // Add event listener to complete button
-        completeBtn.addEventListener('click', () => {
-            task.completed = true;
-            completedTasks.push(task);
-            tasks = tasks.filter((t) => t.id !== task.id);
-            renderTasks();
-            renderCompletedTasks();
-        });
-
-        // Add event listener to uncomplete button
-        uncompleteBtn.addEventListener('click', () => {
-            task.completed = false;
-            uncompletedTasks.push(task);
-            tasks = tasks.filter((t) => t.id !== task.id);
-            renderTasks();
-            renderUncompletedTasks();
-        });
-
-        // Append task text and buttons to task element
-        taskElement.appendChild(taskTextElement);
-        taskElement.appendChild(deleteBtn);
-        taskElement.appendChild(completeBtn);
-        taskElement.appendChild(uncompleteBtn);
-
-        // Append task element to task list
-        taskList.appendChild(taskElement);
-    });
-}
-
-// Function to render completed tasks
-function renderCompletedTasks() {
-    completedTaskList.innerHTML = '';
-    completedTasks.forEach((task) => {
-        const taskElement = document.createElement('li');
-        const words = task.text.split(' ');
-        let displayText = task.text;
-        if (words.length > 4) {
-            displayText = words.slice(0, 4).join(' ') + '...';
-        }
-        taskElement.textContent = displayText;
-        taskElement.style.whiteSpace = 'nowrap';
-        taskElement.style.overflow = 'hidden';
-        taskElement.style.textOverflow = 'ellipsis';
-        taskElement.style.maxWidth = 'calc(100% - 60px)'; // Adjust max width for icon button
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.innerHTML = '<i class="fa fa-times"></i>'; // Delete icon
-        deleteBtn.classList.add('delete-btn');
-        deleteBtn.style.marginLeft = '5px';
-        deleteBtn.style.width = '30px'; // Adjust button width for icon
-        deleteBtn.style.flexShrink = '0';
-        deleteBtn.addEventListener('click', () => {
-            completedTasks = completedTasks.filter((t) => t.id !== task.id);
-            renderCompletedTasks();
-        });
-        taskElement.appendChild(deleteBtn);
-        completedTaskList.appendChild(taskElement);
-    });
-}
-
-// Function to render uncompleted tasks
-function renderUncompletedTasks() {
-    uncompletedTaskList.innerHTML = '';
-    uncompletedTasks.forEach((task) => {
-        const taskElement = document.createElement('li');
-        const words = task.text.split(' ');
-        let displayText = task.text;
-        if (words.length > 4) {
-            displayText = words.slice(0, 4).join(' ') + '...';
-        }
-        taskElement.textContent = displayText;
-        taskElement.style.whiteSpace = 'nowrap';
-        taskElement.style.overflow = 'hidden';
-        taskElement.style.textOverflow = 'ellipsis';
-        taskElement.style.maxWidth = 'calc(100% - 60px)'; // Adjust max width for icon button
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.innerHTML = '<i class="fa fa-times"></i>'; // Delete icon
-        deleteBtn.classList.add('delete-btn');
-        deleteBtn.style.marginLeft = '5px';
-        deleteBtn.style.width = '30px'; // Adjust button width for icon
-        deleteBtn.style.flexShrink = '0';
-        deleteBtn.addEventListener('click', () => {
-            uncompletedTasks = uncompletedTasks.filter((t) => t.id !== task.id);
-            renderUncompletedTasks();
-        });
-        taskElement.appendChild(deleteBtn);
-        uncompletedTaskList.appendChild(taskElement);
+        newTasks.completed = true;
+        sessionStorage.setItem(newTasks.id, JSON.stringify(newTasks));
+      } else {
+        taskText.classList.remove("completed");
+        newTasks.completed = false;
+        sessionStorage.setItem(newTasks.id, JSON.stringify(newTasks));
+      }
     });
   }
-
-  // Sidebar
-  const closeMenuBtn = document.getElementById('ham-close');
-const sidebar = document.querySelector('.sidebar');
-const openMenuBtn = document.getElementById('ham-open');
-const overlay = document.querySelector('.overlay');
-
-openMenuBtn.addEventListener('click', () => {
-    sidebar.classList.add('active');
-    overlay.classList.add('active');
-});
-
-closeMenuBtn.addEventListener('click', () => {
-  sidebar.classList.remove('active');
-    overlay.classList.remove('active');
-  });
-
-  overlay.addEventListener('click', () => {
-    sidebar.classList.remove('active');
-    overlay.classList.remove('active');
-  });
-  console.log(tasks);
+};
