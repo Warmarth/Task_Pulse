@@ -1,17 +1,23 @@
 let switcher1 = document.querySelector(".switch-1");
 let switcher2 = document.querySelector(".switch-2");
 let card = document.querySelector(".card");
+let header = document.querySelector(".card-header");
+let input = document.querySelector(".taskpulse-input input");
 
 switcher1.addEventListener("click", function () {
   switcher2.classList.toggle("close-switch");
   switcher1.classList.toggle("show-switch");
   card.classList.replace("dark", "light");
+  header.classList.remove("card-header-dark");
+  input.classList.remove("input-dark");
 });
 
 switcher2.addEventListener("click", function () {
   switcher2.classList.toggle("close-switch");
   switcher1.classList.toggle("show-switch");
   card.classList.replace("light", "dark");
+  header.classList.add("card-header-dark");
+  input.classList.add("input-dark");
 });
 
 let taskInput = document.querySelector("#task_input");
