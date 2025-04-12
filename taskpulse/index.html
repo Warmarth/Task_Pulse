@@ -1,45 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task Manager</title>
-  <link rel="stylesheet" href="./styles/styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-
-<body>
-  <button id="ham-open">
-    <i class="fa fa-bars"></i>
-  </button>
-
-  <div class="overlay"></div>
-
-  <div class="sidebar">
-    <button id="ham-close">
-      <i class="fa fa-times"></i>
-    </button>
-
-    <h3>Uncompleted Tasks</h3>
-    <ul id="uncompleted-tasks-list"></ul>
-    <h3>Completed Tasks</h3>
-    <ul id="completed-tasks-list"></ul>
-
-  </div>
-
-  <div class="task-section">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskPulse</title>
+    <link rel="stylesheet" href="styles/styles.css" />
+  </head>
+  <body>
+    <script src="./src/index.js" defer></script>
     <div class="container">
-      <h1>TASK MANAGER APP</h1>
-      <input type="text" id="task-input" placeholder="Enter Task....">
-      <button id="add-task-btn">Add Task</button>
-      <ul id="task-list"></ul>
+      <div class="card light">
+        <header class="card-header">
+          <h2>TaskPulse</h2>
+          <button class="switch-container">
+            <div class="sun-icon switch-1">☀️</div>
+            <div class="moon-icon switch-2">🌙</div>
+          </button>
+        </header>
+        <div class="taskpulse-input">
+          <input type="text" id="task_input" placeholder="add a task ....." />
+          <button id="add_button">add</button>
+        </div>
+
+        <div class="task-container"></div>
+      </div>
     </div>
-  </div>
-
-  <script src="./src/index.js"></script>
-</body>
-
+  </body>
 </html>

@@ -1,3 +1,41 @@
+:root {
+  /* Colors */
+  --bg-primary: #5d4df0;
+  --bg-card-dark: #1e1e1e;
+  --bg-card-light: #ffffff;
+  --bg-task: #f8f5ee;
+  --bg-date: #eee8de;
+  --bg-checkbox: #d7dadd;
+  --bg-checkbox-checked: #4caf50;
+  --text-dark: #1e1e1e;
+  --text-light: #ffffff;
+  --text-muted: #888;
+  --text-completed: #bbb;
+  --text-task: #7a746e;
+  --text-date: #a78b6f;
+
+  /* Shadows */
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --shadow-todo: 0 6px 16px rgba(0, 0, 0, 0.08);
+
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Spacing */
+  --gap-sm: 0.3rem;
+  --gap-md: 1rem;
+  --padding-card: 24px;
+  --padding-input: 0.7rem;
+  --padding-button: 0.5rem 1rem;
+
+  /* Font */
+  --font-family: "Segoe UI", sans-serif;
+  --font-mono: monospace;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -15,39 +53,92 @@ body {
 }
 
 .container {
-  position: relative;
   display: flex;
   gap: 20px;
+  align-items: center;
+  justify-content: center;
 }
 
 .card {
   width: 400px;
+  max-height: 500px;
+  overflow-y: auto;
   border: 1px solid #ccc;
-  background-color: #6d4c4c;
   border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: var(--padding-card);
+  box-shadow: var(--shadow-card);
 }
 
-.card.dark {
-  background-color: #1e1e1e;
-  color: white;
+.dark {
+  background-color: var(--bg-card-dark);
+  color: var(--text-light);
 }
 
-.card.light {
-  background-color: white;
-  color: #1e1e1e;
+.light {
+  background-color: var(--bg-card-light);
+  color: var(--text-dark);
 }
 
-.card h2 {
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--gap-md);
+  position: relative;
+  z-index: 1;
+  scroll-behavior: smooth;
+}
+
+.card-header h2 {
   margin: 0 0 8px;
   font-size: 24px;
 }
+/* switch themes */
+.switch-container {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #ccc;
+  display: grid;
+  border-radius: var(--radius-lg);
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  background-color: transparent;
 
-.card .subtitle {
-  font-size: 14px;
-  margin-bottom: 20px;
-  color: #888;
+  overflow: hidden;
+}
+.switch-container .switch-1 {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-card-light);
+}
+
+.switch-container .switch-2 {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-card-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-switch {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+  z-index: -1;
+}
+.show-switch {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.5s linear;
+  z-index: 1;
 }
 
 .taskpulse-input {
@@ -58,13 +149,14 @@ body {
   justify-content: center;
   gap: 0.3rem;
   margin: auto;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--gap-md);
 }
 
 .taskpulse-input input {
   width: 100%;
-  padding: 0.7rem;
+  padding: 0.9rem 0.5rem;
   border-radius: 0.5rem;
+  font-size: 1.2rem;
   border: 1px solid silver;
 }
 .taskpulse-input input::placeholder {
@@ -84,38 +176,29 @@ body {
 
 .taskpulse-input input:focus {
   border: 1px solid transparent;
+  outline: none;
+  outline-offset: -1px;
+  box-shadow: 0 0 0 2px #4caf50;
+  transition: all 0.3s ease-in-out;
 }
 
-.completed {
-  color: #bbb;
-  text-decoration: line-through;
-}
-
-.sun-icon {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: #f5f5f5;
-  padding: 6px;
-  border-radius: 8px;
-}
 .task-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   justify-content: center;
   align-items: center;
-  overflow-y: scroll;
 }
 
 .todo-card {
   display: flex;
-  align-items: center;
-  background-color: #f8f5ee;
+  /* align-items: center; */
+  justify-content: center;
+  gap: 0.4rem;
   border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
-  width: 95%;
+  width: 100%;
 }
 
 .date-box {
@@ -142,10 +225,15 @@ body {
 
 .task-text {
   flex: 1;
-  padding: 0 16px;
-  color: #7a746e;
+  /* color: #7a746e; */
   font-size: 1rem;
+  height: 100%;
   font-weight: 400;
+  text-align: left;
+  overflow: hidden;
+  /* text-overflow: ellipsis; works with white-space: nowrap, but you want wrapping */
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 
 .checkbox {
@@ -154,9 +242,12 @@ body {
   border-radius: 6px;
   background-color: #d7dadd;
   margin-right: 16px;
+  align-self: center;
 }
 
 .checkbox input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
   width: 100%;
   height: 100%;
   cursor: pointer;
@@ -167,4 +258,27 @@ body {
 .checkbox input[type="checkbox"]:checked {
   background-color: #4caf50;
   border-radius: 6px;
+}
+
+.checkbox input[type="checkbox"]:checked::before {
+  content: "✓";
+  color: #fff;
+  width: 24px;
+  height: 24px;
+  scale: 1.2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.checkbox input[type="checkbox"]:checked:hover {
+  background-color: #75c97a;
+}
+
+.completed {
+  color: #bbb;
+  text-decoration: line-through;
+}
+.checkbox:hover {
+  background-color: #d7dadd;
+  cursor: pointer;
 }
