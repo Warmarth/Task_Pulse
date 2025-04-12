@@ -26,6 +26,9 @@ TaskPulse is a simple, browser-based task manager that allows users to add, comp
 - **Frontend:** HTML, CSS, JavaScript
 - **Storage:** `sessionStorage` (for temporary data persistence)
 - **Icons & Fonts:** (optional, if used in UI)
+- **Theme:** CSS Variables for theming
+- **Rendrring:** DOM Manipulation for dynamic task rendering
+- **UUID:** (crypto.randomUUID) for unique task identification
 
 ## 5. Challenges and Solutions
 
@@ -48,3 +51,4 @@ TaskPulse is a simple, browser-based task manager that allows users to add, comp
 - [ ] Task category filtering (e.g., Work, Personal)
 - [ ] Responsive design for mobile view
 - [ ] Daily/weekly reminders
+- [ ] Add edit/delete functionality for tasks.
