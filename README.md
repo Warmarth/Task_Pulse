@@ -2,7 +2,7 @@
 
 ## 1. Project Title
 
-tas
+TASKPULSE
 
 **TaskPulse** – A lightweight, theme-aware to-do application with task scheduling and session-based persistence.
 TaskPulse
