@@ -3,27 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles/styles.css" />
     <title>TaskPulse</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles/styles.css" />
   </head>
   <body>
     <div class="container">
       <div class="card light">
-        <header class="card-header">
-          <h2>TaskPulse</h2>
-          <button class="switch-container">
-            <div class="sun-icon switch-1">☀️</div>
-            <div class="moon-icon switch-2">🌙</div>
-          </button>
-        </header>
-        <div class="taskpulse-input">
-          <input type="text" id="task_input" placeholder="add a task ....." />
-          <button id="add_button">add</button>
-        </div>
+        <section class="card-content">
+          <header class="card-header">
+            <h2>TaskPulse</h2>
+            <button class="switch-container">
+              <div class="sun-icon switch-1"><i class="fa-solid fa-sun"></i>  </div>
+              <div class="moon-icon switch-2"><i class="fa-solid fa-moon"></i> </div>
+            </button>
+          </header>
+          <div class="taskpulse-input">
+            <input type="text" id="task_input" placeholder="add a task ....." />
+            <button id="add_button">add</button>
+          </div>
+        </section>
 
         <div class="task-container"></div>
       </div>
     </div>
-    <script src="src/index.js" defer></script>
+    <script src="./src/index.js" defer></script>
   </body>
 </html>

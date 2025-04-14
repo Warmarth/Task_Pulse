@@ -20,76 +20,132 @@ switcher2.addEventListener("click", function () {
   input.classList.add("input-dark");
 });
 
-let taskInput = document.querySelector("#task_input");
-let addtaskBtn = document.querySelector("#add_button");
+const taskInput = document.querySelector("#task_input");
+const addTaskBtn = document.querySelector("#add_button");
+const taskList = document.querySelector(".task-container");
 
-addtaskBtn.addEventListener("click", function () {
-  let taskText = taskInput.value.trim();
+let tasks = JSON.parse(sessionStorage.getItem("tasks")) || [];
+
+addTaskBtn.addEventListener("click", function () {
+  const taskText = taskInput.value.trim();
+
   if (taskText === "") {
     alert("Please enter a task.");
-  } else {
-    const day = new Date().getDate();
-    const month = new Date().toLocaleString("default", { month: "long" });
-
-    let newTask = {
-      id: crypto.randomUUID(),
-      text: taskText,
-      date: { day, month },
-      time: new Date().toLocaleTimeString(),
-      completed: false,
-    };
-
-    addTask(newTask);
-
-    let tasks =
-      sessionStorage.setItem(newTask.id, JSON.stringify(newTask)) || [];
-
-    tasks.push(newTask);
-    sessionStorage.setItem("tasks", JSON.stringify(tasks));
-
-    renderTasks(newTask);
-
-    taskInput.value = "";
+    return;
   }
+  const now = new Date();
+  const newTask = {
+    id: crypto.randomUUID(),
+    text: taskText,
+    date: {
+      day: now.getDate(),
+      month: now.toLocaleString("default", { month: "short" }),
+    },
+    time: now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+    completed: false,
+  };
+
+  tasks.unshift(newTask);
+  taskInput.value = "";
+  renderTasks();
 });
 
-let taskList = document.querySelector(".task-container");
-function addTask(taskText) {
-  let taskItem = document.createElement("div");
-  taskItem.className = "todo-card";
-  taskItem.innerHTML = `
-  <div class="todo-card">
-  <div class="date-box">
-  <p class="day">${taskText.date["day"]}</p>
-  <p class="month">${taskText.date["month"]}</p>
-  <p class="time">${taskText.time}</p>
-  </div>
-  <p class="task-text">
-              ${taskText.text}
-            </p>
-            <div class="checkbox"><input type="checkbox" /></div>
-            </div>
-  `;
-  taskList.appendChild(taskItem);
-  taskItem.scrollIntoView({ behavior: "smooth" });
+// Save tasks to sessionStorage
+function saveTasksToSessionStorage() {
+  sessionStorage.setItem("tasks", JSON.stringify(tasks));
+}
+// Render All Tasks
+// In your renderTasks function:
+// In your renderTasks function:
+function renderTasks() {
+  taskList.innerHTML = "";
+
+  tasks.forEach((task) => {
+    const taskItem = document.createElement("div");
+    taskItem.className = "task-item";
+    taskItem.dataset.id = task.id;
+
+    taskItem.innerHTML = `
+      <div class="todo-card">
+        <div class="date-box">
+          <p class="day">${task.date.day}</p>
+          <p class="month">${task.date.month}</p>
+          <p class="time">${task.time}</p>
+        </div>
+        <p class="task-text ${task.completed ? "completed" : ""}">${
+      task.text
+    }</p>
+        <div class="checkbox-container">
+          <label class="checkbox">
+            <input type="checkbox" ${task.completed ? "checked" : ""}>
+            <span class="checkmark"></span>
+          </label>
+          <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+          <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+        </div>
+        <div class="edit-container" style="display: none;">
+          <input type="text" class="edit-input" value="${task.text}">
+          <button class="save-btn">Save</button>
+          <button class="cancel-btn">Cancel</button>
+        </div>
+      </div>
+    `;
+
+    taskList.appendChild(taskItem);
+
+    // Get all relevant elements
+    const taskText = taskItem.querySelector(".task-text");
+    const editBtn = taskItem.querySelector(".edit-btn");
+    const deleteBtn = taskItem.querySelector(".delete-btn");
+    const editContainer = taskItem.querySelector(".edit-container");
+    const editInput = taskItem.querySelector(".edit-input");
+    const saveBtn = taskItem.querySelector(".save-btn");
+    const cancelBtn = taskItem.querySelector(".cancel-btn");
+
+    // Edit button click handler
+    editBtn.addEventListener("click", () => {
+      taskText.style.display = "none";
+      editContainer.style.display = "block";
+      editInput.focus();
+    });
+
+    // Save button click handler
+    saveBtn.addEventListener("click", () => {
+      const newText = editInput.value.trim();
+      if (newText) {
+        task.text = newText;
+
+        taskText.textContent = newText;
+
+        saveTasksToSessionStorage();
+      }
+      taskText.style.display = "block";
+      editContainer.style.display = "none";
+    });
+
+    // Cancel button click handler
+    cancelBtn.addEventListener("click", () => {
+      taskText.style.display = "block";
+      editContainer.style.display = "none";
+    });
+
+    // Delete button click handler (unchanged)
+    deleteBtn.addEventListener("click", () => {
+      tasks = tasks.filter((t) => t.id !== task.id);
+      saveTasksToSessionStorage();
+      renderTasks();
+    });
+
+    const checkbox = taskItem.querySelector("input[type='checkbox']");
+    checkbox.addEventListener("change", () => {
+      task.completed = checkbox.checked;
+      taskText.classList.toggle("completed", task.completed);
+      saveTasksToSessionStorage();
+    });
+  });
 }
 
-const renderTasks = (newTasks) => {
-  let task_Items = taskList.children;
-  for (let i = 0; i < task_Items.length; i++) {
-    const checkbox = task_Items[i].querySelector("input[type='checkbox']");
-    const taskText = task_Items[i].querySelector(".task-text");
-    checkbox.addEventListener("click", function () {
-      if (checkbox.checked) {
-        taskText.classList.add("completed");
-
-        newTasks.completed = true;
-        sessionStorage.setItem(newTasks.id, JSON.stringify(newTasks));
-      } else {
-        taskText.classList.remove("completed");
-        newTasks.completed = false;
-        sessionStorage.setItem(newTasks.id, JSON.stringify(newTasks));
-      }
-    });
-  }
-};
+// Initial render
+document.addEventListener("DOMContentLoaded", () => {
+  renderTasks();
+});
