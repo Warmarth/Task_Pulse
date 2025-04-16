@@ -1,6 +1,5 @@
 :root {
-  /* Colors */
-  --bg-primary: #5d4df0;
+  --bg-primary: #faf8f6;
   --bg-card-dark: #1e1e1e;
   --bg-card-light: #ffffff;
   --bg-task: #f8f5ee;
@@ -14,30 +13,90 @@
   --text-task: #7a746e;
   --text-date: #a78b6f;
 
-  /* --header-bg: color-mix(in srgb, green 38%, blue 62%); */
   --header-bg: color-mix(in srgb, rgb(75, 150, 75) 38%, rgb(0, 195, 255) 62%);
   --header-text: #faf8f6;
   --header-text-light: #1e1e1e;
-  /* Shadows */
+  --date-box: #eee8de;
+  --date-box-text: #a78b6f;
+
   --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.15);
   --shadow-todo: 0 6px 16px rgba(0, 0, 0, 0.08);
 
-  /* Border radius */
   --radius-sm: 6px;
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-xl: 16px;
 
-  /* Spacing */
   --gap-sm: 0.3rem;
   --gap-md: 1rem;
   --padding-card: 24px;
   --padding-input: 0.7rem;
   --padding-button: 0.5rem 1rem;
 
-  /* Font */
   --font-family: "Segoe UI", sans-serif;
   --font-mono: monospace;
+}
+
+.dark-theme {
+  --bg-primary: #2a2438;
+  --bg-card-dark: #1e1e1e;
+  --bg-task: #2d2d2d;
+  --bg-date: #3a3a3a;
+  --bg-checkbox: #4a4a4a;
+  --text-dark: #e0e0e0;
+  --text-light: #f0f0f0;
+  --text-muted: #a0a0a0;
+  --text-completed: #777;
+  --text-task: #c7c7c7;
+  --text-date: #b5a882;
+  --header-bg: color-mix(in srgb, #3a5a40 38%, #263035 62%);
+  --header-text: #f8f9fa;
+
+  /* Component-specific dark overrides */
+  .todo-card {
+    background-color: var(--bg-card-dark);
+    border-color: #3a3a3a;
+  }
+
+  .date-box {
+    background-color: var(--bg-date);
+    color: var(--text-date);
+  }
+
+  .task-text {
+    color: var(--text-dark);
+  }
+
+  .task-text.completed {
+    color: var(--text-completed);
+  }
+
+  .checkbox input[type="checkbox"] {
+    background-color: var(--bg-checkbox);
+  }
+
+  .checkbox input[type="checkbox"]:checked {
+    background-color: var(--bg-checkbox-checked);
+  }
+
+  .delete-btn:hover {
+    background-color: #5a1a1a;
+  }
+
+  .edit-btn:hover {
+    background-color: #2a3a5a;
+  }
+
+  .taskpulse-input input.input-dark {
+    background-color: var(--bg-card-dark);
+    color: var(--text-light);
+    border-color: #444;
+  }
+
+  .card-content {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+  }
 }
 
 * {
@@ -51,8 +110,7 @@ body {
   font-family: "Segoe UI", sans-serif;
   background-color: #5d4df0;
   display: flex;
-  justify-content: center;
-  align-items: center;
+
   height: 100vh;
 }
 
@@ -70,21 +128,12 @@ body {
   width: 750px;
   max-height: 500px;
   overflow-y: auto;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   border-radius: 16px;
-  padding: var(--padding-card);
+  padding-top: 0;
+  padding: 0 var(--padding-card);
   box-shadow: var(--shadow-card);
   transition: all 0.3s ease-in-out;
-}
-
-.dark {
-  background-color: var(--bg-card-dark);
-  color: var(--text-light);
-}
-
-.light {
-  background-color: var(--bg-card-light);
-  color: var(--text-dark);
 }
 
 .card-header {
@@ -114,6 +163,7 @@ body {
   border-bottom-right-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   transition: all 0.3s ease-in-out;
+  border-radius: var(--radius-lg);
 }
 
 .card-header-dark {
@@ -153,6 +203,7 @@ body {
   width: 100%;
   height: 100%;
   background-color: var(--bg-card-dark);
+  color: var(--bg-card-light);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -228,7 +279,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* overflow-y: auto;  */
   transition: all 0.3s ease-in-out;
 }
 .task-container::-webkit-scrollbar {
@@ -244,7 +294,7 @@ body {
 .todo-card {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap; /* enables wrap on smaller screens */
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 0.6rem;
@@ -256,7 +306,7 @@ body {
 }
 
 .date-box {
-  background-color: #eee8de;
+  background-color: var(--date-box);
   width: 60px;
   text-align: center;
   padding: 10px 0;
@@ -292,7 +342,7 @@ body {
   width: 24px;
   height: 24px;
   border-radius: 6px;
-  background-color: #d7dadd;
+  background-color: var(--bg-checkbox);
   /* margin-right: 16px; */
 }
 
@@ -306,13 +356,13 @@ body {
   border-radius: 6px;
 }
 .checkbox input[type="checkbox"]:checked {
-  background-color: #4caf50;
+  background-color: var(--bg-checkbox-checked);
   border-radius: 6px;
 }
 
 .checkbox input[type="checkbox"]:checked::before {
   content: "✓";
-  color: #fff;
+  color: var(--bg-date);
   width: 24px;
   height: 24px;
   scale: 1.2;
@@ -321,7 +371,7 @@ body {
   align-items: center;
 }
 .checkbox input[type="checkbox"]:checked:hover {
-  background-color: #75c97a;
+  background-color: var(--bg-checkbox-checked);
 }
 
 .completed {
@@ -331,7 +381,7 @@ body {
 
 .checkbox input:checked ~ .checkmark {
   background-color: #4caf50;
-  /* border-color: #4caf50; */
+  border-color: #4caf50;
 }
 .delete-btn {
   background-color: transparent;
@@ -451,16 +501,29 @@ body {
     padding: var(--gap-sm);
   }
 
+  .card-content {
+    border-radius: var(--radius-md);
+  }
   .card-header h2 {
     font-size: 20px;
   }
 
+  .todo-card{
+    flex-direction: column;
+    align-items: center;
+    padding: var(--gap-sm);
+    overflow: hidden;
+  }
   .date-box {
     width: 100%;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     padding: var(--gap-sm);
     border-radius: var(--radius-sm);
+  }
+  .date-box .month {
+    font-size: 1rem;
   }
 
   .taskpulse-input input,
