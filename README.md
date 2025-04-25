@@ -46,9 +46,9 @@ TaskPulse is a simple, browser-based task manager that allows users to add, comp
 
 ## 6. Feature Plans
 
-- [#] Persistent storage using `localStorage` or backend integration (e.g., Firebase)
-- [#] Drag-and-drop task reordering
-- [ ] Task category filtering (e.g., Work, Personal)
-- [ ] Responsive design for mobile view
-- [ ] Daily/weekly reminders
+- [#] Persistent storage using `sessionStorage` or backend integration (e.g., Firebase)
+- [#] Task category,priority filtering (e.g., Work, Personal)
+- [#] Responsive design for mobile view
 - [#] Add edit/delete functionality for tasks.
+- [ ] Drag-and-drop task reordering
+- [ ] Daily/weekly reminders
