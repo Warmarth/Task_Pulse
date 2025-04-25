@@ -15,21 +15,62 @@
       <div class="card light">
         <section class="card-content">
           <header class="card-header">
-            <h2>TaskPulse</h2>
-            <button class="switch-container">
-              <div class="sun-icon switch-1"><i class="fa-solid fa-sun"></i>  </div>
-              <div class="moon-icon switch-2"><i class="fa-solid fa-moon"></i> </div>
-            </button>
+            <div>
+              <h2>TaskPulse</h2>
+              <button class="switch-container">
+                <div class="sun-icon switch-1">
+                  <i class="fa-solid fa-moon"></i>
+                </div>
+                <div class="moon-icon switch-2">
+                  <i class="fa-solid fa-sun"></i>
+                </div>
+              </button>
+            </div>
+            <div>
+              <button class="search-icon" id="filterButton">
+                <i class="fa-solid fa-search"></i>
+              </button>
+            </div>
           </header>
           <div class="taskpulse-input">
-            <input type="text" id="task_input" placeholder="add a task ....." />
+            <input
+              type="text"
+              id="task_input"
+              placeholder="add a task title ....."
+            />
+            <textarea
+              type="text"
+              id="task_descrip"
+              placeholder="add a task description ....."
+            ></textarea>
+            <div class="priority-container">
+              <label for="priority" class="priority-label">
+                <span class="priority-label-text">Priority</span>
+                <select class="task-priority" id="priority" name="priority">
+                  <option value="" disabled selected>
+                    Set your priority for this task
+                  </option>
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </label>
+              <label for="date" class="date-label">
+                <span class="date-label-text">Date</span>
+                <input type="date" id="date" name="date" min="2023-10-01" />
+              </label>
+              <label for="date" class="date-label">
+                <span class="date-label-text">Time</span>
+                <input type="time" id="time" value="00:00" autocomplete="off" />
+              </label>
+              <!-- due time -->
+            </div>
             <button id="add_button">add</button>
           </div>
         </section>
-
         <div class="task-container"></div>
       </div>
     </div>
-    <script src="./src/index.js" defer></script>
+    <script type="module" src="src/main.js"></script>
   </body>
 </html>
