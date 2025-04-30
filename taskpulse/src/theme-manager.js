@@ -5,6 +5,9 @@ const card = document.querySelector(".card");
 const header = document.querySelector(".card-header");
 const input = document.querySelector(".taskpulse-input input");
 const textarea = document.querySelector(".taskpulse-input textarea");
+const moreOption = document.getElementById("more-option");
+const optionals = document.querySelector(".priority-container");
+
 const body = document.body;
 
 export function switchToLightTheme() {
@@ -43,6 +46,10 @@ export function initializeTheme() {
 // Event Listeners for Theme Switching
 switcher1.addEventListener("click", switchToDarkTheme);
 switcher2.addEventListener("click", switchToLightTheme);
+
+moreOption.addEventListener("click", () => {
+  optionals.classList.toggle("show-priority-container");
+});
 
 // System Theme Change Detection
 window

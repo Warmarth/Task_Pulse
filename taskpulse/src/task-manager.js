@@ -16,10 +16,28 @@ function getTimeRemaining(endtime) {
   const now = new Date();
   const total = endtime - now;
 
+  if (total <= 0) {
+    return {
+      total: 0,
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      tenPercent: 0,
+      twentyPercent: 0,
+      // Adjusted to return 0 for all time components
+      isExpired: true,
+      formatted: "Time expired",
+      compact: "00:00:00",
+    };
+  }
+
   const seconds = Math.floor((total / 1000) % 60);
   const minutes = Math.floor((total / (1000 * 60)) % 60);
   const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
   const days = Math.floor(total / (1000 * 60 * 60 * 24));
+  const tenPercent = Math.floor(total / (1000 * 60 * 60 * 24 * 10));
+  const twentyPercent = Math.floor(total / (1000 * 60 * 60 * 24 * 5));
 
   return {
     total,
@@ -27,6 +45,8 @@ function getTimeRemaining(endtime) {
     hours,
     minutes,
     seconds,
+    tenPercent,
+    twentyPercent,
     isExpired: false,
     formatted: `${days}d ${hours}h ${minutes}m ${seconds}s`,
     compact: `${String(days).padStart(2, "0")}:${String(hours).padStart(
@@ -108,20 +128,26 @@ function startTimer(taskItem, timerDisplay) {
   updateTimer();
   taskItem.timerInterval = setInterval(updateTimer, 1000);
   function updateTimer() {
-    const { total, days, hours, minutes, seconds, isExpired } =
+    const { total, days, hours, isExpired, formatted, minutes, seconds } =
       getTimeRemaining(endTime);
-
     if (total <= 0) {
-      // Time expired
       clearInterval(taskItem.timerInterval);
-      timerDisplay.classList.add("expired");
-      timerDisplay.textContent = `Time expired`;
-      saveTasksToSessionStorage();
+      timerDisplay.textContent = "";
+      taskItem.timerInterval = null;
+      if (!taskItem.completed) {
+        saveTasksToSessionStorage();
+      }
       return;
     }
-    // Update display
-    timerDisplay.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    timerDisplay.classList.toggle("urgent", days < 1);
+
+    minutes >= 5 && minutes < 10 && hours < 1 && days < 1
+      ? timerDisplay.classList.toggle("twenty-percent")
+      : timerDisplay.classList.remove("twenty-percent");
+
+    seconds >= 0 && minutes < 5 && hours < 1 && days < 1
+      ? timerDisplay.classList.add("ten-percent")
+      : timerDisplay.classList.remove("ten-percent");
+    timerDisplay.textContent = `${formatted}`;
   }
 }
 
@@ -147,16 +173,16 @@ export function renderTasks() {
     </div>
     <div class='duecheck'>
     <span class="duedate"> ${task.dueDate}</span>
-    <span class="duetime" data-task-id="${task.id}">${
-      task.dueTime === "00:00" ? "" : task.dueTime
-    }</span>
+    <span class="duetime" data-task-id="${task.id}"></span>
 
     <span class=" ${
       task.priority === "high"
         ? "high-priority"
         : task.priority === "medium"
         ? "medium-priority"
-        : "low-priority"
+        : task.priority === "low"
+        ? "low-priority"
+        : ""
     }"> ${task.priority}</span>
   
     <div class="checkbox-container">
@@ -198,7 +224,16 @@ window.focusOnMainTask = (taskId) => {
     mainTask.style.transition = "background-color 0.5s ease-in-out";
     setTimeout(() => {
       mainTask.classList.remove("highlighted");
-    }, 500);
+    }, 1000);
+  }
+};
+
+window.vibrateTask = () => {
+  if (navigator.vibrate) {
+    setTimeout(() => {
+      navigator.vibrate(1000);
+      alert("your timer has expired!");
+    }, 1000);
   }
 };
 

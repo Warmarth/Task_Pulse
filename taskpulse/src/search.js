@@ -1,6 +1,5 @@
-// import { focusOnMainTask } from "./src/task-manager.js";
-
 const container = document.querySelector(".card-content");
+
 const tab = JSON.parse(sessionStorage.getItem("tasks")) || [];
 
 export function startSearch() {
@@ -15,7 +14,7 @@ export function startSearch() {
   <input type="text" id="task_input" placeholder="search ....."/></label>
   </label>
   </div>
-  <span class='fa-closeBtn' ><i class="fa-solid fa-close"></i></span>
+  <button class='fa-closeBtn'><i class="fa-solid fa-close"></i></button>
   </div>
   <article id='resultList' class='result-container'></article>
   `;
@@ -47,15 +46,16 @@ export function startSearch() {
   function renderResult(itemRendered) {
     const resultList = searchContainer.querySelector("#resultList");
     resultList.innerHTML = itemRendered.length
-      ? itemRendered.map(
-          (task) => `
+      ? itemRendered
+          .map(
+            (task) => `
             <div key="${task.id}" data-task-id="${task.id}" class="found-card">
-              
             <h5>${task.title}</h5>
               <p>${task.description}</p>
             </div>
           `
-        )
+          )
+          .join(" ")
       : "<p>No results found</p>";
 
     const resultItems = resultList.querySelectorAll(".found-card");

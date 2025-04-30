@@ -19,7 +19,10 @@ document.addEventListener("DOMContentLoaded", (e) => {
   taskInput.focus();
 
   // Add task on button click
-  addTaskBtn.addEventListener("click", addTask);
+  addTaskBtn.addEventListener("click", () => {
+    addTask();
+    window.location.reload();
+  });
   searchBtn.addEventListener("click", startSearch);
 
   // Add task on Enter key in textarea
@@ -27,6 +30,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       addTask();
+      window.location.reload();
     }
   });
 });

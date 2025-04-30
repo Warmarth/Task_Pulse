@@ -16,19 +16,22 @@
         <section class="card-content">
           <header class="card-header">
             <div>
-              <h2>TaskPulse</h2>
+              <h1>TaskPulse</h1>
               <button class="switch-container">
                 <div class="sun-icon switch-1">
                   <i class="fa-solid fa-moon"></i>
                 </div>
                 <div class="moon-icon switch-2">
-                  <i class="fa-solid fa-sun"></i>
+                  <i class="fa-regular fa-sun"></i>
                 </div>
               </button>
             </div>
             <div>
               <button class="search-icon" id="filterButton">
                 <i class="fa-solid fa-search"></i>
+              </button>
+              <button class="more-option-icon" id="more-option">
+                <i class="fas fa-ellipsis"></i>
               </button>
             </div>
           </header>
@@ -37,12 +40,15 @@
               type="text"
               id="task_input"
               placeholder="add a task title ....."
+              aria-label="title"
             />
             <textarea
               type="text"
               id="task_descrip"
               placeholder="add a task description ....."
+              aria-label="description"
             ></textarea>
+
             <div class="priority-container">
               <label for="priority" class="priority-label">
                 <span class="priority-label-text">Priority</span>
@@ -57,15 +63,29 @@
               </label>
               <label for="date" class="date-label">
                 <span class="date-label-text">Date</span>
-                <input type="date" id="date" name="date" min="2023-10-01" />
+                <input
+                  type="date"
+                  id="date"
+                  class="date_input"
+                  name="date"
+                  min="2023-10-01"
+                />
               </label>
               <label for="date" class="date-label">
                 <span class="date-label-text">Time</span>
-                <input type="time" id="time" value="00:00" autocomplete="off" />
+                <input
+                  type="time"
+                  id="time"
+                  class="time_input"
+                  value="00:00"
+                  autocomplete="off"
+                />
               </label>
-              <!-- due time -->
             </div>
-            <button id="add_button">add</button>
+            <button id="add_button">
+              add
+              <i class="fa-regular fa-square-plus"></i>
+            </button>
           </div>
         </section>
         <div class="task-container"></div>
