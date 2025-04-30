@@ -1,194 +1,163 @@
-# **Task Manager Update Manifest**
+# Update Log
 
-**Version**: 1.2.0  
-**Release Date**: _[25-4-2025]_
+## Changes Made from April 25, 2025, to April 30, 2025
+## version 1.2.1
 
----
+### **1. Timer Functionality Enhancements**
+- **`getTimeRemaining` Function**:
+  - Added properties `tenPercent` and `twentyPercent` to calculate specific time thresholds.
+  - Enhanced the return object to include:
+    - `isExpired`: Indicates if the timer has expired.
+    - `formatted`: A human-readable time format (e.g., `1d 2h 3m 4s`).
+    - `compact`: A compact format (e.g., `01:02:03`).
 
-## **1. New Features**
-
-### **A. Time Management System**
-
-- ✅ Time tracking with live countdown timers
-- **Features**:  
-  | Feature | Location | Description |  
-  |----------------------|-------------------|-----------------------------------------------|  
-  | `getTimeRemaining()` | `task-manager.js` | Calculates days/hours/minutes remaining until deadline |  
-  | `startTimer()` | `task-manager.js` | Live countdown timer with visual urgency states |  
-  | Deadline Highlighting | CSS | Color-coded warnings for nearing/expired tasks (in progress) |
-
-- **Example Output**:
-  ```
-  3d 05h 12m remaining (normal)
-  00h 59m remaining (red highlight)
-  Time expired (grayed out)
-  ```
+- **`startTimer` Function**:
+  - Added logic to toggle CSS classes (`twenty-percent` and `ten-percent`) based on the remaining time.
+  - Improved handling of expired timers:
+    - Cleared intervals when the timer expired.
+    - Updated the UI to reflect the expiration.
 
 ---
 
-### **B. Enhanced Search**
-
-- ✅ Enhanced search with priority filtering
-- **Features**:  
-  | Feature | Location | Description |  
-  |----------------------|-------------------|-----------------------------------------------|  
-  | `startSearch()` | `search.js` | Real-time search overlay with priority filtering |  
-  | Task Navigation | `focusOnMainTask()` | Clicking search results scrolls to and highlights the task |
-
-- **Key Improvements**:
-  - Searches both titles **and** priorities
-  - Case-insensitive matching
+### **2. Task Deletion**
+- **Delete Button**:
+  - Added an event listener to delete tasks:
+    - Clears the timer interval for the task (if it exists).
+    - Removes the task from the `tasks` array.
+    - Updates `sessionStorage` and re-renders the task list.
 
 ---
 
-### **C. Data Formatting Utilities**
-
-- ✅ Cross-component task navigation
-- **Functions**:  
-  | Function | Location | Input → Output |  
-  |---------------------|-------------------|-----------------------------------------------|  
-  | `formatDate()` | `task-manager.js` | `Date` → `YYYY-MM-DD` |  
-  | `addNewLine()` | `task-manager.js` | `"Line1\nLine2"` → `"Line1<br>Line2"` |
+### **3. Checkbox for Task Completion**
+- **Checkbox Functionality**:
+  - Added a checkbox to mark tasks as completed.
+  - Toggled the `completed` class on the task description based on the checkbox state.
+  - Updated the `tasks` array and `sessionStorage` when the checkbox state changed.
 
 ---
 
-## **2. Modified Components**
+### **4. UI Enhancements**
+- **Highlighting Tasks**:
+  - Added the `focusOnMainTask` function to scroll to and highlight a specific task.
+  - Highlighted tasks are visually emphasized for a short duration.
 
-| File              | Changes                                                           |
-| ----------------- | ----------------------------------------------------------------- |
-| `task-manager.js` | Added timer logic, deadline handling                              |
-| `search.js`       | Implemented cross-component navigation                            |
-| CSS               | Added `.highlighted`, `.urgent`, `.expired` classes (in progress) |
-
----
-
-## **3. Breaking Changes**
-
-- **Required DOM Structure**:
-  ```html
-  <div class="todo-card" data-task-id="...">
-    <!-- Now mandatory -->
-    <span class="duetime"></span>
-    <!-- For timer display -->
-  </div>
-  ```
-
----
-
-## **4. Upgrade Instructions**
-
-### **A. For Developers**
-
-1. Merge new dependencies:
-   ```bash
-   npm install --save date-fns
-   ```
-2. Update HTML:
-   ```html
-   <!-- Add to <head> -->
-   <link rel="stylesheet" href="css/timer.css" />
-   ```
-
-### **B. For Users**
-
-- Existing tasks will auto-migrate
-- New "Time Remaining" column visible for dated tasks
-- descrption text breaks after editing and aligns in the center
-
-```
-'task1<br>task2<br>'
-```
-
----
-
-## **5. Known Issues**
-
-| Issue                       | Workaround                           |
-| --------------------------- | ------------------------------------ |
-| Timezone handling in timers | Use UTC (`new Date().toISOString()`) |
-| Duplicate timer intervals   | Fixed in v1.2.1                      |
-
----
-
-## **6. Pending Features**
-
-- [ ] Recurring tasks
-- [ ] Task categories in search
-- [ ] Timer pause/resume
-
----
-
-## **7. Approval**
-
-| Role           | Name      | Signature | Date |
-| -------------- | --------- | --------- | ---- |
-| Lead Developer | _[cobby]_ |           |      |
-| QA Engineer    | [godson]  |           |      |
-
----
-
-## **8. Supplementary Files**
-
-### **A. JSON Changelog**
-
-**Filename**: `changelog.json`
-
-```json
-{
-  "version": "1.2.0",
-  "features": [
-    {
-      "name": "Time Management",
-      "components": ["getTimeRemaining()", "startTimer()"],
-      "impact": "high"
-    }
-  ],
-  "compatibility": {
-    "minNodeVersion": "16.x",
-    "browsers": ["Chrome 90+", "Firefox 88+"]
+```javascript
+window.focusOnMainTask = (taskId) => {
+  const mainTask = document.querySelector(
+    `.todo-card[data-task-id="${taskId}"]`
+  );
+  if (mainTask) {
+    mainTask.scrollIntoView({ behavior: "smooth", block: "start" });
+    mainTask.classList.add("highlighted");
+    mainTask.style.transition = "background-color 0.5s ease-in-out";
+    setTimeout(() => {
+      mainTask.classList.remove("highlighted");
+    }, 1000);
   }
+};
+```
+
+- **Vibration Alert**:
+  - Added the `vibrateTask` function to vibrate the device and alert the user when a timer expires.
+
+```javascript
+window.vibrateTask = () => {
+  if (navigator.vibrate) {
+    setTimeout(() => {
+      navigator.vibrate(1000);
+      alert("your timer has expired!");
+    }, 1000);
+  }
+};
+```
+
+---
+
+### **5. Session Storage Integration**
+- **Centralized Session Storage Updates**:
+  - Added the `saveTasksToSessionStorage` function to save the `tasks` array to `sessionStorage`.
+
+```javascript
+export function saveTasksToSessionStorage() {
+  sessionStorage.setItem("tasks", JSON.stringify(tasks));
 }
 ```
 
+- **Ensured All Updates Reflect in `sessionStorage`**:
+  - Task additions, deletions, edits, and completion status changes now update `sessionStorage` consistently.
+
 ---
 
-### **B. HTML Release Notes**
+### **6. Added Priority Container Toggle**
+- **`moreOption` Click Event**:
+  - Added an event listener to the "More Options" button (`moreOption`) to toggle the visibility of the priority container (`optionals`).
+  - This allows users to dynamically show or hide additional options in the UI.
 
-**Filename**: `release_notes.html`
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>v1.2.0 Update</title>
-    <style>
-      .feature {
-        color: #2ecc71;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>What's New</h1>
-    <ul>
-      <li class="feature">Real-time task deadlines</li>
-      <li class="feature">Improved search accuracy</li>
-    </ul>
-  </body>
-</html>
+```javascript
+moreOption.addEventListener("click", () => {
+  optionals.classList.toggle("show-priority-container");
+});
 ```
 
 ---
 
-### **C. Excel Compatibility Matrix**
+### **7. Added Priority Container Styles**
+- **`.priority-container`**:
+  - Added styles for the priority container to position it absolutely, hide it by default, and style its appearance.
 
-**Filename**: `compatibility_matrix.xlsx`
+```css
+.priority-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #263035;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  border-radius: var(--radius-sm);
+  gap: var(--gap-sm);
+  padding: var(--gap-sm);
+}
+```
 
-| Feature         | Chrome | Firefox | Safari | Edge | UC Browser |
-| --------------- | ------ | ------- | ------ | ---- | ---------- |
-| Time Tracking   | ✔      | ✔       | ✔      | ✔    | ⚠\*      |
-| Priority Search | ✔      | ✔       | ⚠\*    | ✔    | ⚠\*      |
-
-_\* Requires polyfill_
+- **`.show-priority-container`**:
+  - Added a class to display the priority container when toggled.
 
 ---
 
+### **8. Added Timer Warning Styles**
+- **`.ten-percent`**:
+  - Added styles for tasks with less than 10% of their time remaining, including a pulsing animation.
+
+```css
+.ten-percent {
+  color: rgb(206, 19, 19);
+  animation: pulse 1s infinite;
+}
+```
+
+- **`.twenty-percent`**:
+  - Added styles for tasks with less than 20% of their time remaining, including a pulsing animation.
+
+```css
+.twenty-percent {
+  color: rgb(236, 223, 33);
+  animation: pulse 1ms infinite;
+}
+```
+
+- **`@keyframes pulse`**:
+  - Defined a pulsing animation for the timer warnings.
+---
+
+### **9. Added Highlighted Task Styles**
+- **`.highlighted`**:
+  - Added styles for highlighting a task when it is focused.
+
+### Summary
+These changes improve the functionality, user experience, and data persistence of the task manager application. Key features include:
+1. Enhanced timer handling.
+2. Task deletion and completion tracking.
+3. UI improvements such as task highlighting and priority container toggling.
+4. Centralized session storage management.
+5. Improved styling for priority containers, timer warnings, and task highlighting.
