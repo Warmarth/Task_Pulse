@@ -1,16 +1,15 @@
 const taskInput = document.querySelector("#task_input");
 const tasktextarea = document.querySelector("#task_descrip");
-const allInput = document.querySelectorAll("input");
 const taskList = document.querySelector(".task-container");
 const priority = document.querySelector("#priority");
 const dueDate = document.querySelector("#date");
 const dueTime = document.querySelector("#time");
 
-let tasks = JSON.parse(sessionStorage.getItem("tasks")) || [];
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-export function saveTasksToSessionStorage() {
-  sessionStorage.setItem("tasks", JSON.stringify(tasks));
-}
+export const saveTasksToLocalStorage = () => {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+};
 
 function getTimeRemaining(endtime) {
   const now = new Date();
@@ -25,7 +24,6 @@ function getTimeRemaining(endtime) {
       seconds: 0,
       tenPercent: 0,
       twentyPercent: 0,
-      // Adjusted to return 0 for all time components
       isExpired: true,
       formatted: "Time expired",
       compact: "00:00:00",
@@ -57,7 +55,6 @@ function getTimeRemaining(endtime) {
 }
 export function addTask() {
   // Get and validate input values
-
   const taskText = taskInput.value.trim();
   const taskDescript = tasktextarea.value.trim();
   const dueDateValue = dueDate.value;
@@ -70,7 +67,6 @@ export function addTask() {
 
   // Create base task object
   const now = new Date();
-
   const currentTime = now.toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
@@ -94,7 +90,7 @@ export function addTask() {
 
   // Update application state
   tasks.unshift(newTask);
-  saveTasksToSessionStorage();
+  saveTasksToLocalStorage();
 
   // Reset form fields
   taskInput.value = "";
@@ -128,14 +124,15 @@ function startTimer(taskItem, timerDisplay) {
   updateTimer();
   taskItem.timerInterval = setInterval(updateTimer, 1000);
   function updateTimer() {
-    const { total, days, hours, isExpired, formatted, minutes, seconds } =
+    const { total, days, hours, formatted, minutes, seconds } =
       getTimeRemaining(endTime);
     if (total <= 0) {
       clearInterval(taskItem.timerInterval);
-      timerDisplay.textContent = "";
+      timerDisplay.textContent =
+        taskItem.dueTime === "00:00" ? "" : taskItem.dueTime;
       taskItem.timerInterval = null;
       if (!taskItem.completed) {
-        saveTasksToSessionStorage();
+        saveTasksToLocalStorage();
       }
       return;
     }
@@ -153,13 +150,32 @@ function startTimer(taskItem, timerDisplay) {
 
 export function renderTasks() {
   taskList.innerHTML = "";
-  tasks.forEach((task) => {
+  const savedTask = JSON.parse(localStorage.getItem("savesort"));
+  const orderTask = [];
+
+  if (savedTask) {
+    savedTask.forEach((id) => {
+      const foundTask = tasks.find((task) => task.id === id);
+      if (foundTask) {
+        orderTask.push(foundTask);
+      }
+    });
+    tasks.forEach((task) => {
+      if (!orderTask.find((t) => t.id === task.id)) {
+        orderTask.unshift(task);
+      }
+    });
+  } else {
+    orderTask.push(...tasks);
+  }
+  orderTask.forEach((task) => {
     const taskItem = document.createElement("div");
     taskItem.className = "task-item";
     taskItem.dataset.id = task.id;
+    taskItem.draggable = "true";
 
     taskItem.innerHTML = `
-      <div class="todo-card" data-task-id="${task.id}">
+      <div class="todo-card" data-task-id="${task.id}" ">
         <div class="date-box">
           <p class="day">${task.date.day}</p>
           <p class="month">${task.date.month}</p>
@@ -208,7 +224,6 @@ export function renderTasks() {
     if (task.dueDate && !task.completed) {
       startTimer(task, timershow);
     }
-
     taskList.appendChild(taskItem);
     setupTaskEventListeners(taskItem, task);
   });
@@ -269,7 +284,7 @@ function setupTaskEventListeners(taskItem, task) {
       task.description = newDescription;
       taskTitle.textContent = newTitle;
       taskDescription.textContent = newDescription;
-      saveTasksToSessionStorage();
+      saveTasksToLocalStorage();
     }
 
     taskContent.style.display = "flex";
@@ -284,16 +299,17 @@ function setupTaskEventListeners(taskItem, task) {
   });
 
   deleteBtn.addEventListener("click", () => {
-    clearInterval(task.timerInterval); // Clear timer if it exists
+    clearInterval(task.timerInterval);
+    // window.location.reload();
     tasks = tasks.filter((t) => t.id !== task.id);
-    saveTasksToSessionStorage();
+    saveTasksToLocalStorage();
     renderTasks();
   });
 
   checkbox.addEventListener("change", () => {
     task.completed = checkbox.checked;
     taskDescription.classList.toggle("completed", task.completed);
-    saveTasksToSessionStorage();
+    saveTasksToLocalStorage();
   });
 
   editTitleInput.addEventListener("keydown", (e) => {

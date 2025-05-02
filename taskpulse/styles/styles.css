@@ -99,6 +99,14 @@
     background-color: var(--header-bg);
     color: var(--header-text);
   }
+  .card-header {
+    background-color: var(--bg-card-dark);
+    color: var(--text-light);
+    box-shadow: var(--shadow-card);
+    border-radius: var(--radius-lg);
+    padding: var(--padding-card);
+    transition: width 0.3s ease-in-out;
+  }
 }
 
 /* ==================== */
@@ -113,7 +121,6 @@
 body {
   margin: 0;
   font-family: "Segoe UI", sans-serif;
-  background-color: #5d4df0;
   display: flex;
   height: 100vh;
 }
@@ -124,7 +131,7 @@ body {
   align-items: center;
   flex-direction: column;
   gap: var(--gap-md);
-  width: 100%;
+  width: 100vw;
   background-color: var(--bg-primary);
   position: relative;
 }
@@ -147,14 +154,16 @@ body {
   justify-content: space-between;
   margin-bottom: var(--gap-md);
   padding: var(--padding-card);
+  border-radius: var(--radius-lg);
 }
 
-.card-header h2 {
+.card-header h1 {
   margin: 0 0 8px;
   font-size: 24px;
 }
 
 .card-content {
+  background-color: var(--header-bg);
   position: sticky;
   top: 0px;
   width: 100%;
@@ -162,19 +171,9 @@ body {
   margin-bottom: var(--gap-md);
   gap: var(--gap-md);
   padding: var(--padding-card);
-  background-color: var(--header-bg);
   box-shadow: var(--shadow-card);
-  transition: all 0.3s ease-in-out;
+  transition: width 0.3s ease-in-out;
   border-radius: var(--radius-lg);
-}
-
-.card-header-dark {
-  background-color: var(--bg-card-dark);
-  color: var(--text-light);
-  box-shadow: var(--shadow-card);
-  border-radius: var(--radius-lg);
-  padding: var(--padding-card);
-  transition: all 0.3s ease-in-out;
 }
 
 /* ==================== */
@@ -233,16 +232,26 @@ body {
 .search-icon {
   width: 2rem;
   height: 2rem;
-  border: 1px solid #ccc;
+  border: 1px solid transparent;
   align-items: center;
   color: var(--date-box-text);
   border-radius: var(--radius-lg);
   align-items: flex-start;
+  transition: all 0.3s ease-in-out;
+  /* background-color: var(--header-bg); */
 }
 .more-option-icon {
+  color: var(--bg-checkbox-checked);
   position: relative;
   z-index: 2;
 }
+
+.rotate i {
+  color: red;
+  transform: rotate(45deg);
+  transition: all 0.3s ease-in-out;
+}
+
 .found-card {
   background-color: var(--header-bg);
   color: var(--text-light);
@@ -296,7 +305,7 @@ body {
   color: grey;
 }
 
-.taskpulse-input button {
+.add_btn {
   padding: 0.5rem 1rem;
   width: 100%;
   border-radius: 5px;
@@ -304,6 +313,13 @@ body {
   background-color: #4caf50;
   color: #faf8f6;
   text-transform: capitalize;
+}
+
+.add_btn:hover {
+  cursor: pointer;
+  background-color: #faf8f6;
+  color: #4caf50;
+  transition: background 0.3s ease-in-out;
 }
 
 /* ==================== */
@@ -388,6 +404,13 @@ body {
   background-color: rgba(126, 77, 77, 0.2);
   border-radius: 3px;
   width: 2px;
+}
+
+.task-item.dragging {
+  opacity: 0.6;
+  background-color: var(--header-bg);
+  width: inherit;
+  border-radius: inherit;
 }
 
 .todo-card {
@@ -526,15 +549,16 @@ input[type="time"] {
 
 .priority-container {
   position: absolute;
+  display: none;
   top: 0;
   right: 0;
   background-color: #263035;
-  display: none;
   flex-direction: column;
   align-items: center;
   border-radius: var(--radius-sm);
   gap: var(--gap-sm);
   padding: var(--gap-sm);
+  transition: background 0.3s ease-in-out;
 }
 
 .show-priority-container {
@@ -599,6 +623,8 @@ input[type="time"] {
   border-radius: var(--radius-sm);
   text-transform: capitalize;
   font-weight: bold;
+  border: none;
+  outline: none;
 }
 
 .task-priority:focus {
@@ -810,10 +836,11 @@ input[type="time"] {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
   .card {
     width: 20rem;
     padding: var(--gap-sm);
+    transition: all 0.3s ease-in-out;
   }
 
   .card-content {
