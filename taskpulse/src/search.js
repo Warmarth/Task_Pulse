@@ -1,6 +1,5 @@
 const container = document.querySelector(".card-content");
-
-const tab = JSON.parse(sessionStorage.getItem("tasks")) || [];
+const tab = JSON.parse(localStorage.getItem("tasks")) || [];
 
 export function startSearch() {
   const searchContainer = document.createElement("section");

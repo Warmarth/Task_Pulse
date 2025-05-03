@@ -1,6 +1,7 @@
 import { initializeTheme } from "./theme-manager.js";
 import { addTask, renderTasks } from "./task-manager.js";
 import { startSearch } from "./search.js";
+import { dragFunction } from "./dragdrop.js";
 
 // DOM Elements
 const taskInput = document.querySelector("#task_input");
@@ -11,12 +12,10 @@ const searchBtn = document.querySelector("#filterButton");
 // Initialize the application
 document.addEventListener("DOMContentLoaded", (e) => {
   e.preventDefault();
-
   initializeTheme();
-  renderTasks();
 
-  // Focus the input field on load
   taskInput.focus();
+  // Focus the input field on load
 
   // Add task on button click
   addTaskBtn.addEventListener("click", () => {
@@ -33,4 +32,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
       window.location.reload();
     }
   });
+  renderTasks();
+  dragFunction();
 });

@@ -32,8 +32,8 @@ TaskPulse is a simple, browser-based task manager that allows users to add, comp
 
 # **Task Manager Update Manifest**
 
-**Version**: 1.2.0  
-**Release Date**: _[25-4-2025]_
+**Version**: 1.3.1  
+**Release Date**: _[3-5-2025]_
 
 ---
 
@@ -47,7 +47,7 @@ TaskPulse is a simple, browser-based task manager that allows users to add, comp
   |----------------------|-------------------|-----------------------------------------------|  
   | `getTimeRemaining()` | `task-manager.js` | Calculates days/hours/minutes remaining until deadline |  
   | `startTimer()` | `task-manager.js` | Live countdown timer with visual urgency states |  
-  | Deadline Highlighting | CSS | Color-coded warnings for nearing/expired tasks (in progress) |
+  | Deadline Highlighting | CSS | Color-coded warnings for nearing/expired tasks (done) |
 
 - **Example Output**:
   ```
@@ -155,7 +155,7 @@ TaskPulse is a simple, browser-based task manager that allows users to add, comp
 | Role           | Name      | Signature | Date |
 | -------------- | --------- | --------- | ---- |
 | Lead Developer | _[cobby]_ |           |      |
-| QA Engineer    | [godson]  |           |      |
+| QA Engineer    | _[godson]_|           |      |
 
 ---
 
@@ -192,7 +192,7 @@ TaskPulse is a simple, browser-based task manager that allows users to add, comp
 <!DOCTYPE html>
 <html>
   <head>
-    <title>v1.2.0 Update</title>
+    <title>v1.3.1 Update</title>
     <style>
       .feature {
         color: #2ecc71;
@@ -204,6 +204,12 @@ TaskPulse is a simple, browser-based task manager that allows users to add, comp
     <ul>
       <li class="feature">Real-time task deadlines</li>
       <li class="feature">Improved search accuracy</li>
+      <li class="feature">
+        Drag-and-drop task sorting using native HTML5 drag events
+      </li>
+      <li class="feature">
+        Dynamic re-rendering of tasks aligned with stored order
+      </li>
     </ul>
   </body>
 </html>
@@ -217,8 +223,8 @@ TaskPulse is a simple, browser-based task manager that allows users to add, comp
 
 | Feature         | Chrome | Firefox | Safari | Edge | UC Browser |
 | --------------- | ------ | ------- | ------ | ---- | ---------- |
-| Time Tracking   | ✔      | ✔       | ✔      | ✔    | ⚠\*      |
-| Priority Search | ✔      | ✔       | ⚠\*    | ✔    | ⚠\*      |
+| Time Tracking   | ✔      | ✔       | ✔      | ✔    | ⚠\*        |
+| Priority Search | ✔      | ✔       | ⚠\*    | ✔    | ⚠\*        |
 
 _\* Requires polyfill_
 
